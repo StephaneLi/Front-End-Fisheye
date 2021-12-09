@@ -1,45 +1,28 @@
-    async function getPhotographers() {
-        // Penser à remplacer par les données récupérées dans le json
-        const photographers = [
-            {
-                "name": "Ma data test",
-                "id": 1,
-                "city": "Paris",
-                "country": "France",
-                "tagline": "Ceci est ma data test",
-                "price": 400,
-                "portrait": "MarcelNikolic.jpg"
-            },
-            {
-                "name": "Autre data test",
-                "id": 2,
-                "city": "Londres",
-                "country": "UK",
-                "tagline": "Ceci est ma data test 2",
-                "price": 500,
-                "portrait": "EllieRoseWilkens.jpg"
-            },
-        ]
-        // et bien retourner le tableau photographers seulement une fois
-        return ({
-            photographers: [...photographers, ...photographers, ...photographers]})
-    }
+async function init() {
+  // Node HTML dans lequel on insert la list des photographes
+  const $photographersWrapper = document.querySelector('#photographer_section')
 
-    async function displayData(photographers) {
-        const photographersSection = document.querySelector(".photographer_section");
+  // Instance de la Class API
+  const data = new Api('/data/photographers.json')
 
-        photographers.forEach((photographer) => {
-            const photographerModel = photographerFactory(photographer);
-            const userCardDOM = photographerModel.getUserCardDOM();
-            photographersSection.appendChild(userCardDOM);
-        });
-    };
+  // Récupère les datas des photographes
+  const photographers = await data.getPhotographers();
+  const tabPhotographers = []
 
-    async function init() {
-        // Récupère les datas des photographes
-        const { photographers } = await getPhotographers();
-        displayData(photographers);
-    };
-    
-    init();
-    
+  // Création des objets photographer et insertion dans un tableau
+  photographers.forEach(element => {
+    const photographer = new PhotographerFactory(element, 'type1')
+    tabPhotographers.push(photographer)
+  })
+
+  // Creation des Card et insertion dans le DOM
+  tabPhotographers.forEach(element => {
+    const photographerCard = new PhotographerCard(element)
+    $photographersWrapper.appendChild(photographerCard.createPhotographerCard())
+  })
+
+  //test 
+  const test = await data.getPortfolioByUserId(82);
+};
+
+init();

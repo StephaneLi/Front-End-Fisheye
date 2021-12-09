@@ -1,28 +1,56 @@
-.photographer_section {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 70px;
-  margin-top: 100px;
+.photographer-card {
+  justify-self: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
 
-  article {
-    justify-self: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  ul, li {
+    margin:0;
+    padding:0;
+    list-style: none;
+  }
 
-    h2 {
-      color: $primary-lighten;
-      font-size: 36px;
-    }
+  &__title {
+    color: $primary-lighten;
+    font-size: 36px;
+    font-weight: 300;
+    margin:0;
+  }
+
+  &__cover {
+    height: 200px;
+    width: 200px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-bottom: 20px;
 
     img {
-      height: 200px;
-      width: 200px;
+      object-fit: cover;
+      height: 100%;
+      min-width: 100%;
     }
   }
-}
 
+  &__infos {
+    &__local {
+      color: $primary;
+      font-size: 13px;
+    }
+
+    &__tagline {
+      font-size: 10px;
+    }
+
+    &__price {
+      font-size: 9px;
+      color: $grey;
+    }
+  }
+
+
+}
 
 
 
