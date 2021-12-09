@@ -1,0 +1,15 @@
+// Import Theme
+@import './themes/colors';
+
+// Import Base Global SCSS
+@import './base/base';
+
+// Import Layout SCSS
+@import './layout/header';
+@import './layout/main';
+
+// Imprt Components SCSS
+@import './components/form';
+@import './components/logo';
+@import './components/modal';
+@import './components/photographer';
