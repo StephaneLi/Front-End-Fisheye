@@ -8,6 +8,9 @@
 @import './layout/header';
 @import './layout/main';
 
+// Import Pages SCSS
+@import './pages/home';
+
 // Imprt Components SCSS
 @import './components/form';
 @import './components/logo';

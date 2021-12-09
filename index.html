@@ -9,13 +9,18 @@
   </head>
   <body>
     <header>
-        <img src="assets/images/logo.png" class="logo" />
+        <img src="assets/images/logo.svg" class="logo" />
         <h1>Nos photographes</h1>
     </header>
     <main id="main">
-        <div class="photographer_section"></div>
+        <ul id="photographer_section">
+          
+        </ul>
     </main>
-    <script src="scripts/factories/Photographer.js"></script>
+    <script src="scripts/api/api.js"></script>
+    <script src="scripts/models/photographerT1.js"></script>
+    <script src="scripts/templates/photographerCard.js"></script>
+    <script src="scripts/factories/photographerFactory.js"></script>
     <script src="scripts/pages/index.js"></script>
     <script src="scripts/pages/photographer.js"></script>
   </body>
