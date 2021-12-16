@@ -8,7 +8,24 @@ body {
 }
 
 h1 {
-  color: $primary;
-  margin-right: 100px;
+  font-weight: 400;
 }
 
+h2, .display-h2 {
+  color: $primary-lighten;
+  font-size: 36px;
+  font-weight: 300;
+}
+
+.text {
+  &--primary {
+    color: $primary;
+  }
+  &--grey {
+    color: $grey
+  }
+}
+
+section {
+  margin: 30px;
+}

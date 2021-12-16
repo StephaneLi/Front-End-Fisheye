@@ -1,0 +1,25 @@
+#filter {
+  @include row(flex-start);
+
+  &__title {
+    font-weight: 600;
+    margin:0;
+    margin-right:20px;
+  }
+}
+
+#contact-modal {
+  @include column(center, center);
+  position: fixed;
+  top:0;
+  right:0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $bg-overflay;
+  z-index: 2;
+
+  &__title {
+    font-size: 50px;
+    margin:0;
+  }
+}

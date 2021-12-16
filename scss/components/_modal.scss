@@ -1,50 +1,36 @@
 
-#contact_modal {
-  display: none;
-}
-
-.photograph-header {
-  background-color: $secondary-light;
-  height: 300px;
-  margin: 0 100px;
-}
-
-.contact_button {
-  font-size: 20px;
-  font-weight: bold;
-  color: white;
-  padding: 11px;
-  width: 170px;
-  height: 70px;
-  border: none;
-  background-color: $primary;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
 .modal {
+  @include column();
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%, -50%);
   border-radius: 5px;
-  background-color: $primary-lignten2;
-  width: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 35px;
-  margin: auto;
+  background-color: $primary-lighten2;
+  width: 600px;
+  padding: 15px 35px;
+  box-shadow: $shadow-modal;
+
+  .button__close {
+    margin-top:10px;
+  }
 
   header {
-    justify-content: space-between;
+    @include row(space-between, start);
+    height: inherit;
+    padding: 0;
     width: 100%;
 
     img {
       cursor: pointer;
+      padding: 20px 0;
     }
 
     h2 {
-      font-size: 64px;
+      font-size: 50px;
       font-weight: normal;
-      text-align: center;
+      color: inherit;
+      margin:0;
     }
   }  
 }

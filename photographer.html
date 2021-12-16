@@ -1,36 +1,170 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
   <head>
     <link href="css/style.css" rel="stylesheet" type="text/css" />
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <title>Fisheye - photographe </title>
   </head>
   <body>
-    <header>
-      <img src="assets/images/logo.png" class="logo" />
+    <header role="banner">
+      <a href="index.html">
+        <img src="assets/images/logo.svg" class="logo" alt="Fisheye Home page" />
+      </a>
     </header>
     <main id="main">
-      <div class="photograph-header">
-        <button class="contact_button" onclick="displayModal()">Contactez-moi</button>
-      </div>
+      <section id="profil">
+        <article>
+          <div class="photographer-header">
+            <div class="photographer__content">
+              <h1 class="photographer__content__title display-h2">Mimi Keel</h1>
+              <p class="photographer__content__description">
+                <span class="photographer__content__description__local text--primary">London, UK</span>
+                <span class="photographer__content__description__tag text--grey">Voir le beau jour au quotidien</span>
+              </p>
+            </div>
+            <div class="photographer__actions">
+              <button class="button" aria-label="Contact Me" aria-haspopup="contact-modal" aria-controls="contact-modal">Contactez-moi</button>
+            </div>
+            <div class="photographer__cover">
+              <img width="100" height="auto" src="/assets/photographers/MimiKeel.jpg" alt="Mimi Keel">
+            </div>      
+          </div>
+        </article>
+        <aside class="photographer-content-link">
+          <div class="photographer-content-link__like">297 081</div>
+          <div class="photographer-content-link__price">300€ / jour</div>
+        </aside>
+        <aside id="contact-modal" role="dialog" aria-labelledby="contact-modal__title" aria-hidden="true" tabindex="-1" style="display: none">
+          <div class="modal" role="document" data-stop-propagation>
+            <header>
+              <h1 id="contact-modal__title">Contactez-moi<br /> Mimi Keel</h1>
+              <span class="material-icons button__close" role="button" aria-label="Fermer" title="Fermer cette fenêtre modale" data-dismiss="contact-modal" tabindex="0">close</span>
+            </header>
+            <form>
+              <div>
+                <label for="form-firstname">Prénom</label>
+                <input type="text" name="firstname" id="form-firstname" required minlength="2"/>
+              </div>
+              <div>
+                <label for="form-lastname">Nom</label>
+                <input type="text" name="lastname" id="form-lastname" required minlength="2"/>
+              </div>
+              <div>
+                <label for="form-email">Email</label>
+                <input type="email" name="email" id="form-email" required/>
+              </div>
+              <div>
+                <label for="form-message">Votre message</label>
+                <textarea name="message" id="input-message" rows="5" placeholder=" " required minlength="10"></textarea>
+              </div>
+              <button class="button">Envoyer</button>
+            </form>
+          </div>
+        </aside>
+      </section>
+      <section id="filter">
+        <label id="filter__title" for="filter__select">Trier par</label>
+        <ul id="filter__select" role="listbox" aria-label="Order by" tabindex="0" class="selector">
+          <li id="filter__option1" role="option" class="selector__item selected">Popularité</li>
+          <li id="filter__option2" role="option" class="selector__item">Date</li>
+          <li id="filter__option3" role="option" class="selector__item">Titre</li>
+        </ul>
+      </section>
+      <section id="portfolio">
+        <ul class="media-cards-list">
+
+          <li class="media-card">            
+            <a href="#" class="media-card__cover">          
+              <img width="100" height="auto" src="./assets/porfolio/Ellie Rose/Architecture_Connected_Curves.jpg" alt="media titre de l'image"/>        
+            </a> 
+            <div class="media-card__content">
+              <h2 class="media-card__content__title">Arc-en-ciel</h2>
+              <div class="media-card__content__like favorite">
+                <label aria-label="like" for="like" class="favorite__counter">12</label>
+                <input id="like" class="favorite__input" type="checkbox" />
+              </div>
+            </div>
+          </li>
+          <li class="media-card">
+            <div class="media-card__cover">
+              <img width="100" height="auto" src="./assets/porfolio/Ellie Rose/Architecture_Connected_Curves.jpg" alt="media titre de l'image"/>
+            </div>
+            <div class="media-card__content">
+              <h2 class="media-card__content__title">Arc-en-ciel</h2>              
+              <div class="media-card__content__like favorite">
+                <label class="favorite__counter">12</label>
+                <input class="favorite__input" type="checkbox" />
+              </div>
+            </div>
+          </li>
+          <li class="media-card">
+            <div class="media-card__cover">
+              <img width="100" height="auto" src="./assets/porfolio/Ellie Rose/Architecture_Connected_Curves.jpg" alt="media titre de l'image"/>
+            </div>
+            <div class="media-card__content">
+              <h2 class="media-card__content__title">Arc-en-ciel</h2>              
+              <div class="media-card__content__like favorite">
+                <label class="favorite__counter">12</label>
+                <input class="favorite__input" type="checkbox" />
+              </div>
+            </div>
+          </li>
+          <li class="media-card">
+            <div class="media-card__cover">
+              <img width="100" height="auto" src="./assets/porfolio/Ellie Rose/Architecture_Connected_Curves.jpg" alt="media titre de l'image"/>
+            </div>
+            <div class="media-card__content">
+              <h2 class="media-card__content__title">Arc-en-ciel</h2>              
+              <div class="media-card__content__like favorite">
+                <label class="favorite__counter">12</label>
+                <input class="favorite__input" type="checkbox" />
+              </div>
+            </div>
+          </li>
+          <li class="media-card">
+            <div class="media-card__cover">
+              <img width="100" height="auto" src="./assets/porfolio/Ellie Rose/Architecture_Connected_Curves.jpg" alt="media titre de l'image"/>
+            </div>
+            <div class="media-card__content">
+              <h2 class="media-card__content__title">Arc-en-ciel</h2>              
+              <div class="media-card__content__like favorite">
+                <label class="favorite__counter">12</label>
+                <input class="favorite__input" type="checkbox" />
+              </div>
+            </div>
+          </li>
+          <li class="media-card">
+            <div class="media-card__cover">
+              <img width="100" height="auto" src="./assets/porfolio/Ellie Rose/Architecture_Connected_Curves.jpg" alt="media titre de l'image"/>
+            </div>
+            <div class="media-card__content">
+              <h2 class="media-card__content__title">Arc-en-ciel</h2>              
+              <div class="media-card__content__like favorite">
+                <label class="favorite__counter">12</label>
+                <input class="favorite__input" type="checkbox" />
+              </div>
+            </div>
+          </li>
+          <li class="media-card">
+            <div class="media-card__cover">
+              <img width="100" height="auto" src="./assets/porfolio/Ellie Rose/Architecture_Connected_Curves.jpg" alt="media titre de l'image"/>
+            </div>
+            <div class="media-card__content">
+              <h2 class="media-card__content__title">Arc-en-ciel</h2>              
+              <div class="media-card__content__like favorite">
+                <label class="favorite__counter">12</label>
+                <input class="favorite__input" type="checkbox" />
+              </div>
+            </div>
+          </li>
+
+        </ul>
+      </section>
     </main>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
-          <img src="assets/icons/close.svg" onclick="closeModal()" />
-        </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
-				</form>
-			</div>
-		</div>
-    <script src="/scripts/utils/contactForm.js"></script>
+    <script src="/scripts/class/modal.js"></script>
+    <script src="/scripts/pages/profil.js"></script>
   </body>
 </html>
