@@ -1,3 +1,9 @@
+import "../scss/style_index.scss"
+
+import Api from './api/api'
+import PhotographerFactory from './factories/photographerFactory'
+import PhotographerCard from './templates/photographerCard'
+
 async function init() {
   // Node HTML dans lequel on insert la list des photographes
   const $photographersWrapper = document.querySelector('#photographer_section')

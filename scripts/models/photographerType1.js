@@ -1,5 +1,5 @@
 // PHOTOGRAPHER : Structure le modele de donnée du photographe avec Getters et Setters
-class PhotographerT1 {
+export default class PhotographerType1 {
   
   constructor(data) {
     this._id = data.id

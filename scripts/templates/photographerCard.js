@@ -1,5 +1,5 @@
 // TEMPLATE CARD : Génère le contenu HTML de la Card 
-class PhotographerCard {
+export default class PhotographerCard {
   constructor(photographer) {
     this._photographer = photographer
   }

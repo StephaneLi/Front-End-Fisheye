@@ -1,5 +1,5 @@
 // CLASS API : Recupere les données dans le fichier JSON avec la méthode fetch
-class Api {
+export default class Api {
   /**
    * @param {string} url 
    */

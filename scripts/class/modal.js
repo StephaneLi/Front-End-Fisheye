@@ -1,4 +1,4 @@
-class Modal {
+export default class Modal {
   /**
    * @param {HTMLElement} node 
    * @param {String} ariaSelector 
@@ -49,13 +49,13 @@ class Modal {
     // Recupération de tous les elements qui intéragissent avec tab (focus)
     this._ariaElements = Array.from(this._node.querySelectorAll(this._ariaSelector))
 
-    // ferme la modal si on click sur son arriere plan
+    // Ferme la modal si on click sur son arriere plan
     this._node.addEventListener('click', this._closeModal)
 
-    // stop la propagation des evenement si je click sur la modal
+    // Stop la propagation des evenement si on click sur la modal
     this._node.querySelector('[data-stop-propagation]').addEventListener('click', this._stopPropagation)
 
-    // ecoute les evenement au clavier pour fermer la modal
+    // Ecoute les evenement au clavier pour fermer la modal
     window.addEventListener('keydown', this._ariaModal)
 
     this._modalDisplay = true
@@ -68,7 +68,7 @@ class Modal {
     // Focus sur l'element avant l'ouverture de la modal
     if(this._previousFocus !== null) this._previousFocus.focus()
 
-    // change les attributs aria et style
+    // Change les attributs aria et style
     this._node.style.display = "none"
     this._node.setAttribute('aria-hidden', true) 
     this._node.removeAttribute('aria-modal')
@@ -105,7 +105,7 @@ class Modal {
       this._closeModal()
     }
 
-    if (e.key === 'Tab' && modal !== null) {
+    if (e.key === 'Tab' && this._node !== null) {
       this._focusInModal(e)
     }
   }

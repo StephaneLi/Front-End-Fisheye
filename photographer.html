@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
-    <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <head>    
     <meta charset="utf-8">
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="css/app_profil.css" rel="stylesheet" type="text/css" />
     <title>Fisheye - photographe </title>
   </head>
   <body>
@@ -37,7 +38,7 @@
           <div class="photographer-content-link__like">297 081</div>
           <div class="photographer-content-link__price">300€ / jour</div>
         </aside>
-        <aside id="contact-modal" role="dialog" aria-labelledby="contact-modal__title" aria-hidden="true" tabindex="-1" style="display: none">
+        <aside id="contact-modal" role="dialog" aria-labelledby="contact-modal__title" aria-hidden="true" tabindex="-1" style="display:none">
           <div class="modal" role="document" data-stop-propagation>
             <header>
               <h1 id="contact-modal__title">Contactez-moi<br /> Mimi Keel</h1>
@@ -164,7 +165,6 @@
         </ul>
       </section>
     </main>
-    <script src="/scripts/class/modal.js"></script>
-    <script src="/scripts/pages/profil.js"></script>
+    <script src="/js/app_profil.js"></script>
   </body>
 </html>
