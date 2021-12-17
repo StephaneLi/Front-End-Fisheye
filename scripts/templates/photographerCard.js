@@ -9,7 +9,7 @@ export default class PhotographerCard {
 
     const card = `      
       <article class="photographer">
-        <a href="/photographer.html?id=${this._photographer.id}" aria-label="${this._photographer.name}">
+        <a href="photographer.html?id=${this._photographer.id}" aria-label="${this._photographer.name}">
           <div class="photographer__cover">
             <img width="100" height="auto" src="${this._photographer.portrait}" alt="${this._photographer.name}" />
           </div>        

@@ -2,6 +2,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 // Verification de l'environnement de developpement
 const dev = process.env.NODE_ENV === "development"
+console.log(__dirname + '/public/js')
 
 let config = {
   mode: process.env.NODE_ENV,
@@ -12,7 +13,7 @@ let config = {
   },
   output: {
     filename: '[name].js',
-    path: __dirname + '/js',
+    path: __dirname + '/public/js',
   },
   devtool: dev ? "eval-cheap-module-source-map" : "source-map",
   module: {

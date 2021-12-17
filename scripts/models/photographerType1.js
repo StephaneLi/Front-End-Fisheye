@@ -36,6 +36,6 @@ export default class PhotographerType1 {
   }
 
   get portrait() {
-    return '/assets/photographers/' + this._portrait
+    return 'assets/photographers/' + this._portrait
   }
 }
