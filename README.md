@@ -21,11 +21,19 @@ Ils ont récemment levé des fonds et aimeraient mettre à jour leur site web.
 [Banque d'images](https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEye_Photos.zip)
 
 ## Usage 
-Utiliser [node.js](https://nodejs.org/en/download/) avec le package [SASS](https://sass-lang.com/install) pour travailler sur le projet.
+Utiliser [node.js](https://nodejs.org/en/download/) pour travailler sur le projet.
+
+Environnement de développement :
 
 ```bash
-npm install -g sass
-sass --watch scss/style.scss css/style.css
+npm install
+npm run dev
+```
+Environnement de production :
+
+```bash
+npm install
+npm run prod
 ```
 
 ## Livrables
