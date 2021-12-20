@@ -1,5 +1,5 @@
 // CLASS API : Recupere les données dans le fichier JSON avec la méthode fetch
-class Api {
+export default class Api {
   /**
    * @param {string} url 
    */
@@ -17,12 +17,24 @@ class Api {
       })
   }
 
+  // requete API simulation avec getPhotographer by ID
+  async getPhotographerById(userId) {
+    return fetch(this._url)
+      .then(response => response.json())
+      .then(response => {
+        return response.photographers.filter(photographer => photographer.id === userId)[0]
+      })
+      .catch(err => {
+        throw new Error('La requete api getPhotographer a échoué : ', err)
+      })
+  }
+
   // requete API simulation get tous les media avec l'id du photographe
   async getPortfolioByUserId(userId) {
     return fetch(this._url)
     .then(response => response.json())
     .then(response => {
-      response.media.filter(elment => elment.photographerId === userId)
+      return response.media.filter(media => media.photographerId === userId)
     } )
     .catch(err => {
       throw new Error('La requete api getPhotographer a échoué : ', err)

@@ -1,9 +1,6 @@
-.photographer-card {
+.photographer {
+  @include column ();
   justify-self: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
   text-align: center;
 
   ul, li {
@@ -12,19 +9,13 @@
     list-style: none;
   }
 
-  &__title {
-    color: $primary-lighten;
-    font-size: 36px;
-    font-weight: 300;
-    margin:0;
-  }
-
   &__cover {
     height: 200px;
     width: 200px;
     overflow: hidden;
     border-radius: 50%;
     margin-bottom: 20px;
+    box-shadow: $shadow-profil;
 
     img {
       object-fit: cover;
@@ -33,9 +24,12 @@
     }
   }
 
+  &__title {
+    margin:0;
+  }
+
   &__infos {
     &__local {
-      color: $primary;
       font-size: 13px;
     }
 
@@ -45,13 +39,73 @@
 
     &__price {
       font-size: 9px;
-      color: $grey;
     }
   }
 
+  &__content {
+    align-items: center;
 
+    &__title {
+      margin:0;
+      font-size: 64px;
+      line-height: 72px;
+    }
+    &__description {
+      @include column (space-evenly, start);
+      height: 100%;
+      margin:0;     
+
+      &__tag {
+        font-size: 18px;
+      }
+  
+      &__local {
+        font-size: 24px;
+      }
+    }
+  }
 }
 
+.photographer-header {
+  @include row();
+  flex-wrap: wrap;
+  gap: 30px;
+  border-radius: 5px;
+
+  background-color: $secondary-light;
+  min-height: 300px;
+  padding: 10px 50px;
+  width: 100%;
+}
+
+.photographer-content-link {
+  @include row();
+  position: fixed;
+  bottom: 0;
+  right: 30px;
+  padding:15px 30px;
+  background: $primary-lighten2;
+  border-radius: 5px 5px 0px 0px;
+  font-weight: 600;
+  z-index: 1;
+
+  &__like {
+    @include row();
+
+    &::after {
+      content: '\e87d';
+      font-family: 'Material Icons';
+      font-style: normal;
+      font-size: 18px;
+      font-weight: 400;
+      margin:0 5px;
+    }
+  }
+
+  &__price {
+    margin-left: 20px;
+  }
+}
 
 
 

@@ -1,6 +1,6 @@
 
 # FishEye : P6 OpenClassrooms	
-[![made-with-html5](https://img.shields.io/badge/Made%20with-html5-important.svg)](https://www.javascript.com) [![made-with-css3](https://img.shields.io/badge/Made%20with-css3-blue.svg)](https://www.javascript.com) [![made-with-sass](https://img.shields.io/badge/Made%20with-sass-ff69b4.svg)](https://www.javascript.com) [![made-with-javascript](https://img.shields.io/badge/Made%20with-javascript-1f425f.svg)](https://www.javascript.com) [![GitHub commits](https://badgen.net/github/commits/StephaneLi/StephaneLieumont_6_09122021)](https://GitHub.com/StephaneLi/StephaneLieumont_6_09122021/commit/) ![GitHub repo size](https://img.shields.io/github/repo-size/StephaneLi/StephaneLieumont_6_09122021)
+![made-with-node](https://img.shields.io/badge/Node.js-43853D?style=for-the-badge&logo=node.js&logoColor=white)  ![made-with-javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E) ![made-with-sass](	https://img.shields.io/badge/Sass-CC6699?style=for-the-badge&logo=sass&logoColor=white) ![GitHub repo size](https://img.shields.io/github/repo-size/StephaneLi/StephaneLieumont_6_09122021)
 
 ---
 ## Contexte 
@@ -21,11 +21,19 @@ Ils ont récemment levé des fonds et aimeraient mettre à jour leur site web.
 [Banque d'images](https://s3-eu-west-1.amazonaws.com/course.oc-static.com/projects/Front-End+V2/P5+Javascript+%26+Accessibility/FishEye_Photos.zip)
 
 ## Usage 
-Utiliser [node.js](https://nodejs.org/en/download/) avec le package [SASS](https://sass-lang.com/install) pour travailler sur le projet.
+Utiliser [node.js](https://nodejs.org/en/download/) pour travailler sur le projet.
+
+Environnement de développement :
 
 ```bash
-npm install -g sass
-sass --watch scss/style.scss css/style.css
+npm install
+npm run dev
+```
+Environnement de production :
+
+```bash
+npm install
+npm run prod
 ```
 
 ## Livrables

@@ -1,0 +1,22 @@
+// Import variables
+@import './utils/variables';
+@import './utils/mixin';
+
+// Import Theme
+@import './themes/colors';
+@import './themes/shadows';
+
+// Import Base Global SCSS
+@import './base/base';
+
+// Import Layout SCSS
+@import './layout/header';
+@import './layout/main';
+
+// Import Pages SCSS
+@import './pages/home';
+
+// Imprt Components SCSS
+@import './components/logo';
+@import './components/photographer';
+@import './components/button';
