@@ -7,10 +7,9 @@
   border-radius: 5px;
   color: white;
   font-size: 18px;
-  height: 40px;
   overflow: hidden;
 
-  &::after {
+  button {
     position: absolute;
     top:0;
     right:0;
@@ -22,6 +21,7 @@
     font-weight: 400;
     transform: rotate(90deg);
     cursor: pointer;
+    z-index: 3;
   }
 
   &__item {
@@ -29,6 +29,7 @@
     padding-right:50px;
     padding-bottom:10px;
     border-bottom: 1px solid;
+    list-style: none;
 
     &:last-child {
       border: 0px;

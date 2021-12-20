@@ -48,10 +48,8 @@ async function init() {
   const contactModalTemplate = new ContactModalTemplate(photographer)
   $photographersWrapper.appendChild(contactModalTemplate.createContactModal())
 
-  // Creation de l'objet Modal
+  // Listeners pour la Modal (accessibilité + listeners)
   const modal = new Modal(contactModalTemplate.modalHtmlElement, contactModalTemplate.closeButtonHtmlElement)
-
-  // Listeners pour la Modal
   const btnModalContactOpen = document.querySelector('[aria-controls="contact-modal"]')
   btnModalContactOpen.addEventListener('click', () => {
     modal.displayModal()

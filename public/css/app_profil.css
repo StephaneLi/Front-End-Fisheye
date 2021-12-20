@@ -341,10 +341,9 @@ form div {
   border-radius: 5px;
   color: white;
   font-size: 18px;
-  height: 40px;
   overflow: hidden;
 }
-.selector::after {
+.selector button {
   position: absolute;
   top: 0;
   right: 0;
@@ -356,12 +355,14 @@ form div {
   font-weight: 400;
   transform: rotate(90deg);
   cursor: pointer;
+  z-index: 3;
 }
 .selector__item {
   padding: 5px;
   padding-right: 50px;
   padding-bottom: 10px;
   border-bottom: 1px solid;
+  list-style: none;
 }
 .selector__item:last-child {
   border: 0px;
