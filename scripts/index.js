@@ -1,8 +1,8 @@
 import "../scss/style_index.scss"
 
 import Api from './api/api'
-import PhotographerFactory from './factories/photographerFactory'
-import PhotographerCard from './templates/photographerCard'
+import Photographer from './models/photographer'
+import PhotographerTemplate from './templates/photographerTemplate'
 
 async function init() {
   // Node HTML dans lequel on insert la list des photographes
@@ -17,18 +17,15 @@ async function init() {
 
   // Création des objets photographer et insertion dans un tableau
   photographers.forEach(element => {
-    const photographer = new PhotographerFactory(element, 'type1')
+    const photographer = new Photographer(element, 'type1')
     tabPhotographers.push(photographer)
   })
 
   // Creation des Card et insertion dans le DOM
   tabPhotographers.forEach(element => {
-    const photographerCard = new PhotographerCard(element)
-    $photographersWrapper.appendChild(photographerCard.createPhotographerCard())
+    const photographerTemplate = new PhotographerTemplate(element)
+    $photographersWrapper.appendChild(photographerTemplate.createPhotographerCard())
   })
-
-  //test 
-  const test = await data.getPortfolioByUserId(82);
 };
 
 init();
