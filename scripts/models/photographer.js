@@ -12,7 +12,11 @@ export default class Photographer {
     this._price = data.price
     this._portrait = data.portrait
     this._portfolio = []
-    this._template = null
+    
+    this._templatePhotographer = null
+    this._templatePortfolio = null
+    this._templateModal = null
+    this._templateFilter = null
   }
 
   get id() {
@@ -51,8 +55,20 @@ export default class Photographer {
     return this._caluculateLikes()
   }
 
-  get template() {
-    return this._template
+  get templatePhotographer() {
+    return this._templatePhotographer
+  }
+
+  get templatePortfolio() {
+    return this._templatePortfolio
+  }
+
+  get templateModal() {
+    return this._templateModal
+  }
+
+  get templateFilter() {
+    return this._templateFilter
   }
 
   /**
@@ -65,9 +81,30 @@ export default class Photographer {
   /**
    * @param {PhotographerTemplate} template
    */
-  set template(template) {
-    this._template = template
+  set templatePhotographer(template) {
+    this._templatePhotographer = template
   }
+
+  /**
+   * @param {MediaTemplate} template
+   */
+  set templatePortfolio(template) {
+    this._templatePortfolio = template
+  }
+
+  /**
+   * @param {ContactModalTemplate} template
+   */
+     set templateModal(template) {
+      this._templateModal = template
+    }
+
+  /**
+   * @param {FilterSelectTemplate} template
+   */
+     set templateFilter(template) {
+      this._templateFilter = template
+    }
 
   /**
    * @param {Media} media 

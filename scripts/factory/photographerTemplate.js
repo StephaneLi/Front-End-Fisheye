@@ -5,8 +5,14 @@ export default class PhotographerTemplate {
   constructor(photographer) {
     this._photographer = photographer
     this.$wrapperCard = null
-    this.$wrapperHeader= null
+    this.$wrapperHeader = null
     this.$wrapperLink = null
+
+    this.$buttonModal = null
+  }
+
+  get btnModal () {
+    return this.$buttonModal
   }
 
   createPhotographerCard () {
@@ -53,6 +59,7 @@ export default class PhotographerTemplate {
     `
 
     this.$wrapperHeader.innerHTML = content
+    this.$buttonModal = this.$wrapperHeader.querySelector('[aria-controls="contact-modal"]')
     return this.$wrapperHeader
   }
 

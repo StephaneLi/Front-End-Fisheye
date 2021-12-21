@@ -49,14 +49,21 @@ main {
   margin-bottom: 30px;
 }
 
-#filter {
+#filter .filter-selector {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: nowrap;
+  width: 100%;
+  height: 60px;
 }
-#filter__title {
+#filter .filter-selector h3 {
+  margin: 0;
+  margin-right: 20px;
+  line-height: 45px;
+}
+#filter .filter-selector__title {
   font-weight: 600;
   margin: 0;
   margin-right: 20px;
@@ -79,6 +86,10 @@ main {
 #contact-modal__title {
   font-size: 50px;
   margin: 0;
+}
+
+#portfolio {
+  display: block;
 }
 
 form {
@@ -335,37 +346,122 @@ form div {
 .selector {
   position: relative;
   margin: 0;
-  padding: 5px 10px;
   background: #901C1C;
   list-style: none;
   border-radius: 5px;
   color: white;
+  height: 45px;
+  width: 170px;
   font-size: 18px;
   overflow: hidden;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+  z-index: 2;
+}
+.selector.active {
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.selector.active .selector__item:hover {
+  background-color: #DB8876;
+  color: black;
+}
+.selector.active button {
+  transform: rotate(180deg);
+}
+.selector.active .selector__item {
+  opacity: 1;
+  pointer-events: all;
 }
 .selector button {
   position: absolute;
+  background: none;
+  border: none;
+  color: white;
   top: 0;
   right: 0;
-  padding: 5px 10px;
+  height: 45px;
   content: "\e409";
   font-family: "Material Icons";
   font-style: normal;
   font-size: 25px;
   font-weight: 400;
-  transform: rotate(90deg);
+  transform: rotate(0deg);
+  transition: transform 0.3s ease-in-out;
   cursor: pointer;
-  z-index: 3;
+  z-index: 1;
+}
+.selector button:hover {
+  color: #DB8876;
+}
+.selector__list {
+  margin: 0;
+  padding: 0;
 }
 .selector__item {
-  padding: 5px;
-  padding-right: 50px;
-  padding-bottom: 10px;
-  border-bottom: 1px solid;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 20px;
   list-style: none;
+  line-height: 45px;
+  height: 46px;
+  cursor: pointer;
+  transition: top 0.2s ease-in-out;
+  opacity: 0;
+  pointer-events: none;
 }
-.selector__item:last-child {
+.selector__item.selected {
+  opacity: 1;
+}
+.selector__item::after {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  content: "";
+  width: 150px;
+  height: 1px;
+  background-color: white;
+  transform: translateX(-50%);
+}
+.selector__item--1 {
   border: 0px;
+}
+.selector__item--1::after {
+  content: none;
+}
+.selector__item--1 {
+  top: 0px;
+}
+.selector__item--2 {
+  top: 45px;
+}
+.selector__item--3 {
+  top: 90px;
+}
+.selector__item--4 {
+  top: 135px;
+}
+.selector__item--5 {
+  top: 180px;
+}
+.selector__item--6 {
+  top: 225px;
+}
+.selector__item--7 {
+  top: 270px;
+}
+.selector__item--8 {
+  top: 315px;
+}
+.selector__item--9 {
+  top: 360px;
+}
+.selector__item--10 {
+  top: 405px;
+}
+.selector__item--11 {
+  top: 450px;
 }
 
 .media-cards-list {

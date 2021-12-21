@@ -1,11 +1,11 @@
 export default class Modal {
   /**
-   * @param {HTMLElement} node 
+   * @param {ContactModalTemplate} template 
    * @param {String} ariaSelector 
    */
-  constructor (node, closeNode = null, ariaSelector = 'button, a, input, textarea, [role="button"]') {
-    this._node = node
-    this._closeNode = closeNode 
+  constructor (template, ariaSelector = 'button, a, input, textarea, [role="button"]') {
+    this._node = template.modalHtmlElement
+    this._closeNode = template.closeButtonHtmlElement
     this._ariaSelector = ariaSelector
     this._previousFocus = null
     this._modalDisplay = null
@@ -21,8 +21,8 @@ export default class Modal {
     this._node.style.display = "none"
 
     // Si la modal a un bouton de fermture on ajoute l'evenement
-    if (closeNode) {
-      closeNode.addEventListener('click', this._closeModal)
+    if (this._closeNode) {
+      this._closeNode.addEventListener('click', this._closeModal)
     }
   }
 

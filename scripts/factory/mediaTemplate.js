@@ -7,6 +7,11 @@ export class ListMediaTemplate {
    */
   constructor(photographer) {
     this._photographer = photographer
+    this.$wrapperListCards = null
+  }
+
+  get mediasHtmlElement() {
+    return this.$wrapperListCards
   }
 
   /**
@@ -17,26 +22,32 @@ export class ListMediaTemplate {
     this.$wrapperListCards.classList.add('media-cards-list')
 
     this._photographer.portfolio.forEach(media => {
-      const mediaTemplate = new MediaTemplate(media)
+      const mediaTemplate = new MediaTemplate(this._photographer, media)
       media.template = mediaTemplate
       this.$wrapperListCards.appendChild(mediaTemplate.creatCardMedia('li'))
     })
 
     return this.$wrapperListCards
   }
+
+  refreshListMedia() {    
+    const parentNode = this.$wrapperListCards.parentNode
+    parentNode.removeChild(this.$wrapperListCards)
+    parentNode.appendChild(this.createListMedia())
+  }
 }
 
 /**
  * Créé un template HTML avec Un element Media (Le contenu different en fonction du type de media)
  */
-export class MediaTemplate extends ListMediaTemplate {
+export class MediaTemplate {
   _imgPath = 'assets/porfolio'
 
   /**
   * @param {Media} media 
   */
-  constructor(media) {
-    super()
+  constructor(photographer, media) {
+    this._photographer = photographer
     this._media = media
     this.$wrapperCard = null
   }
@@ -64,7 +75,7 @@ export class MediaTemplate extends ListMediaTemplate {
         this._media.likes -= 1 
       }
       this.$wrapperCard.querySelector('label.favorite__counter').innerHTML = this._media.likes
-      this._media.photographer.template.refreshPhotographerContentLink()
+      this._photographer.templatePhotographer.refreshPhotographerContentLink()
     })
   }
 
@@ -77,7 +88,7 @@ export class MediaTemplate extends ListMediaTemplate {
 
     const card = `         
       <a href="#" class="media-card__cover">          
-        <img width="100" src="${ this._imgPath }/${ this._media.photographer.id }/${ this._media.image }" alt="${ this._media.description }"/>        
+        <img width="100" src="${ this._imgPath }/${ this._photographer.id }/${ this._media.image }" alt="${ this._media.description }"/>        
       </a> 
       <div class="media-card__content">
         <a href="#"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
@@ -87,8 +98,8 @@ export class MediaTemplate extends ListMediaTemplate {
         </div>
       </div>
     `
-    
     this.$wrapperCard.innerHTML = card
+    this.$wrapperCard.querySelector('#like').checked = this._media.userLike
     this._stateLikesListener()
     return this.$wrapperCard
   }
@@ -103,18 +114,19 @@ export class MediaTemplate extends ListMediaTemplate {
     const card = `         
       <a href="#" class="media-card__cover">          
         <video>
-          <source src="${ this._imgPath }/${ this._media.photographer.id }/${ this._media.video }" type="video/mp4">
+          <source src="${ this._imgPath }/${ this._photographer.id }/${ this._media.video }" type="video/mp4">
         </video>    
       </a> 
       <div class="media-card__content">
         <a href="#"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
         <div class="media-card__content__like favorite">
           <label aria-label="like" for="like" class="favorite__counter">${ this._media.likes }</label>
-          <input id="like" class="favorite__input" type="checkbox" />
+          <input id="like" class="favorite__input" type="checkbox" checked="${ this._media.userLike }" />
         </div>
       </div>
-    `
+    `    
     this.$wrapperCard.innerHTML = card
+    this.$wrapperCard.querySelector('input#like').checked = this._media.userLike
     this._stateLikesListener()
     return this.$wrapperCard
   }

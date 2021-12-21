@@ -2,7 +2,7 @@ import "../scss/style_index.scss"
 
 import Api from './api/api'
 import Photographer from './models/photographer'
-import PhotographerTemplate from './templates/photographerTemplate'
+import PhotographerTemplate from './factory/photographerTemplate'
 
 async function init() {
   // Node HTML dans lequel on insert la list des photographes
