@@ -9,7 +9,7 @@ async function init() {
   const $photographersWrapper = document.querySelector('#photographer_section')
 
   // Instance de la Class API
-  const data = new Api('data/photographers.json')
+  const data = new Api('data/photographers_new.json')
 
   // Récupère les datas des photographes
   const photographers = await data.getPhotographers();

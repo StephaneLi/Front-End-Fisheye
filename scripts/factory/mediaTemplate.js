@@ -1,7 +1,7 @@
 /**
  * Créé un portfolio à partir d'une liste de medias
  */
-export class ListMediaTemplate {
+export default class ListMediaTemplate {
   /**
    * @param {Photographer} 
    */
@@ -32,8 +32,17 @@ export class ListMediaTemplate {
 
   refreshListMedia() {    
     const parentNode = this.$wrapperListCards.parentNode
-    parentNode.removeChild(this.$wrapperListCards)
-    parentNode.appendChild(this.createListMedia())
+
+    parentNode.classList.remove('loaded')
+    parentNode.classList.add('loading')
+
+    const timer = setTimeout(() => {
+      parentNode.removeChild(this.$wrapperListCards)
+      parentNode.appendChild(this.createListMedia())
+      parentNode.classList.remove('loading')
+      parentNode.classList.add('loaded')
+      clearTimeout(timer)
+    }, 300)
   }
 }
 
@@ -87,19 +96,19 @@ export class MediaTemplate {
     this.$wrapperCard.classList.add('media-card')
 
     const card = `         
-      <a href="#" class="media-card__cover">          
+      <a href="${ this._imgPath }/${ this._photographer.id }/${ this._media.image }" class="media-card__cover">          
         <img width="100" src="${ this._imgPath }/${ this._photographer.id }/${ this._media.image }" alt="${ this._media.description }"/>        
       </a> 
       <div class="media-card__content">
-        <a href="#"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
+        <a href="${ this._imgPath }/${ this._photographer.id }/${ this._media.image }"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
         <div class="media-card__content__like favorite">
-          <label aria-label="like" for="like" class="favorite__counter">${ this._media.likes }</label>
-          <input id="like" class="favorite__input" type="checkbox" />
+          <label aria-label="like-${ this._media.id }" for="like-${ this._media.id }" class="favorite__counter">${ this._media.likes }</label>
+          <input id="like-${ this._media.id }" class="favorite__input" type="checkbox" />
         </div>
       </div>
     `
     this.$wrapperCard.innerHTML = card
-    this.$wrapperCard.querySelector('#like').checked = this._media.userLike
+    this.$wrapperCard.querySelector(`#like-${ this._media.id }`).checked = this._media.userLike
     this._stateLikesListener()
     return this.$wrapperCard
   }
@@ -112,21 +121,21 @@ export class MediaTemplate {
     this.$wrapperCard.classList.add('media-card')
 
     const card = `         
-      <a href="#" class="media-card__cover">          
-        <video>
+      <a href="${ this._imgPath }/${ this._photographer.id }/${ this._media.video }" class="media-card__cover">          
+        <video title="${ this._media.description }">
           <source src="${ this._imgPath }/${ this._photographer.id }/${ this._media.video }" type="video/mp4">
         </video>    
       </a> 
       <div class="media-card__content">
-        <a href="#"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
+        <a href="${ this._imgPath }/${ this._photographer.id }/${ this._media.video }"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
         <div class="media-card__content__like favorite">
-          <label aria-label="like" for="like" class="favorite__counter">${ this._media.likes }</label>
-          <input id="like" class="favorite__input" type="checkbox" checked="${ this._media.userLike }" />
+          <label aria-label="like-${ this._media.id }" for="like-${ this._media.id }" class="favorite__counter">${ this._media.likes }</label>
+          <input id="like-${ this._media.id }" class="favorite__input" type="checkbox" />
         </div>
       </div>
     `    
     this.$wrapperCard.innerHTML = card
-    this.$wrapperCard.querySelector('input#like').checked = this._media.userLike
+    this.$wrapperCard.querySelector(`#like-${ this._media.id }`).checked = this._media.userLike
     this._stateLikesListener()
     return this.$wrapperCard
   }

@@ -11,7 +11,7 @@ export class Media {
     this._price = data.price
     this._title = data.title
     this._userLike = false
-    this._description = ''
+    this._description = data.alt
   }
 
   get id() {

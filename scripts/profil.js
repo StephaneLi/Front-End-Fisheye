@@ -2,13 +2,13 @@ import "../scss/style_profil.scss"
 
 import Api from './api/api'
 import Photographer from "./models/photographer"
-import {Video, Picture} from './models/media'
+import { Video, Picture } from './models/media'
 import PhotographerTemplate from './factory/photographerTemplate'
 import ContactModalTemplate from './factory/contactModalTemplate'
-import {ListMediaTemplate } from './factory/mediaTemplate'
+import ListMediaTemplate from './factory/mediaTemplate'
 import FilterSelectTemplate from "./factory/filterSelectTemplate"
 import Modal from './controller/modal'
-import { FilterSelect } from "./controller/filterSelect"
+import FilterSelect from "./controller/filterSelect"
 
 
 async function init() {
@@ -18,7 +18,7 @@ async function init() {
   const listMedia = []
 
   // Instance de la Class API
-  const data = new Api('data/photographers.json')
+  const data = new Api('data/photographers_new.json')
 
   // Recupération paramètres url
   const queryString = window.location.search
@@ -61,6 +61,7 @@ async function init() {
 
   // Insertion du portfolio après application du filtre par default
   $portfolioWrapper.appendChild(photographer.templatePortfolio.createListMedia())
+  $portfolioWrapper.classList.add('loaded')
 
   // Observeur pour rafraichier les element du DOM filtré
   const targetNode = photographer.templateFilter.observerNode;
@@ -69,6 +70,78 @@ async function init() {
     photographer.templatePortfolio.refreshListMedia()
   })
   observer.observe(targetNode, config);
+
+  // Lightbox
+  /**
+   * @property {HTMLElement} element
+   */
+  class Lightbox {
+    /**
+     * @param {string} url URL de l'image
+     */
+    constructor(url) {
+      this._element = this.buildDOM(url)
+      this._loadImage(url)
+      document.body.appendChild(this._element)
+    }
+
+    /**
+    * @param {string} url 
+    */
+    _loadImage (url) {
+      const image = new Image();
+      const container = this._element.querySelector('.lightbox__container')
+      const loader = document.createElement('div')
+
+      image.src = url
+      loader.classList.add('lightbox__loader')
+      container.appendChild(loader)
+
+      image.onload = function() {
+        container.removeChild(loader)
+        container.appendChild(image)
+      }      
+    }
+
+    /**
+     * @param {string} url 
+     * @return {HTMLElement}
+     */
+    buildDOM (url) {
+      const template = document.createElement('aside')
+      template.classList.add('lightbox')
+
+      const content = `
+        <button class="lightbox__close material-icons">close</button>
+        <button class="lightbox__next material-icons">arrow_forward_ios</button>
+        <button class="lightbox__prev material-icons">arrow_back_ios</button>
+        <div class="lightbox__container">
+          <div class="lightbox__container__content">
+            <p>Titre de l'image</p>
+          </div>             
+        </div>
+      `
+
+      template.innerHTML = content
+
+      return template
+    }
+
+    /**
+     * @param {Photographer} photographer 
+     */
+    static init(photographer) {
+      const mediaCardsLinks = photographer.templatePortfolio.mediasHtmlElement.querySelectorAll('a')
+      mediaCardsLinks.forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault()
+          new Lightbox(e.currentTarget.getAttribute('href'))
+        })
+      })
+    }
+  }
+
+  Lightbox.init(photographer)
 }
 
 init()

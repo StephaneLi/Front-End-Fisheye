@@ -6,6 +6,7 @@ export default class Modal {
   constructor (template, ariaSelector = 'button, a, input, textarea, [role="button"]') {
     this._node = template.modalHtmlElement
     this._closeNode = template.closeButtonHtmlElement
+    this._sendButton = template.sendButtonHtmlElement
     this._ariaSelector = ariaSelector
     this._previousFocus = null
     this._modalDisplay = null
@@ -16,6 +17,7 @@ export default class Modal {
     this._ariaModal = this._ariaModal.bind(this)
     this._closeModal = this.closeModal.bind(this)
     this._displayModal = this.displayModal.bind(this)
+    this._sendEmail = this._sendEmail.bind(this)
 
     // Cache l'element modal par default
     this._node.style.display = "none"
@@ -24,6 +26,10 @@ export default class Modal {
     if (this._closeNode) {
       this._closeNode.addEventListener('click', this._closeModal)
     }
+
+    this._sendButton.addEventListener('click', (e) => {
+      this._sendEmail()
+    })
   }
 
   getElement() {
@@ -94,18 +100,19 @@ export default class Modal {
    * @param {*} e 
    */
   _ariaModal(e) {
-    e.preventDefault()
-
     // Si on appuie sur echap on ferme la modal
     if (e.key === 'Escape' || e.key === 'Esc') {
+      e.preventDefault()
       this._closeModal()
     }
     // Si l'element focus est le bouton close et que la touche est enter on ferme la modal
     if ( this._node.querySelector(':focus') === this._closeNode && e.key === 'Enter' ) {
+      e.preventDefault()
       this._closeModal()
     }
 
     if (e.key === 'Tab' && this._node !== null) {
+      e.preventDefault()
       this._focusInModal(e)
     }
   }
@@ -131,5 +138,20 @@ export default class Modal {
     }
 
     this._ariaElements[index].focus()
+  }
+
+  _sendEmail () {
+    const form = this._node.querySelector('form')
+    if (form.checkValidity()) {
+      const formData = new FormData( form );
+      console.log('ENVOI DE L\'EMAIL:')
+      console.log('******************')
+      console.log('Prenom : ', formData.get('firstname'))
+      console.log('Nom : ', formData.get('lastname'))
+      console.log('Email : ', formData.get('email'))
+      console.log('message : ')
+      console.log(formData.get('message'))
+      form.reset()
+    }
   }
 }

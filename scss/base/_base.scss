@@ -29,3 +29,8 @@ h2, .display-h2 {
 section {
   margin: 30px;
 }
+
+:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(255, 81, 0, 0.5);
+}

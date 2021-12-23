@@ -22,7 +22,7 @@ export default class PhotographerTemplate {
       <article class="photographer">
         <a href="photographer.html?id=${ this._photographer.id }" aria-label="${ this._photographer.name }">
           <div class="photographer__cover">
-            <img width="100" height="auto" src="${ this._photographer.portrait }" alt="${ this._photographer.name }" />
+            <img width="100" src="${ this._photographer.portrait }" alt="${ this._photographer.name }" />
           </div>        
           <h2 class="photographer__title">${ this._photographer.name }</h2>        
         </a>
