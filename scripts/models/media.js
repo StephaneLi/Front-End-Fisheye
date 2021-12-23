@@ -10,8 +10,8 @@ export class Media {
     this._likes = data.likes
     this._price = data.price
     this._title = data.title
-    this._description = ''
-    this._template = null
+    this._userLike = false
+    this._description = data.alt
   }
 
   get id() {
@@ -22,6 +22,9 @@ export class Media {
   }
   get likes(){
     return this._likes
+  }
+  get userLike() {
+    return this._userLike
   }
   get price(){
     return this._price
@@ -41,13 +44,7 @@ export class Media {
    */
   set likes(value){
     this._likes = value
-  }
-
-  /**
-   * @param {MediaTemplate} template
-   */
-  set template(template) {
-    this._template = template
+    this._userLike = !this._userLike
   }
 }
 

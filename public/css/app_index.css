@@ -31,6 +31,11 @@ section {
   margin: 30px;
 }
 
+:focus-visible {
+  outline: 0;
+  box-shadow: 0 0 0 3px rgba(255, 81, 0, 0.5);
+}
+
 header {
   display: flex;
   flex-direction: row;
@@ -91,20 +96,37 @@ main {
   list-style: none;
 }
 .photographer__cover {
+  position: relative;
   height: 200px;
   width: 200px;
   overflow: hidden;
   border-radius: 50%;
   margin-bottom: 20px;
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  transition: transform 0.15s ease-in-out;
 }
 .photographer__cover img {
   object-fit: cover;
   height: 100%;
   min-width: 100%;
 }
+.photographer__cover::after {
+  position: absolute;
+  content: "";
+  top: 0;
+  left: 0;
+  background-color: white;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.3s ease-in-out;
+}
 .photographer__title {
   margin: 0;
+}
+.photographer__title:hover {
+  text-decoration: underline !important;
 }
 .photographer__infos__local {
   font-size: 13px;
@@ -138,6 +160,12 @@ main {
 .photographer__content__description__local {
   font-size: 24px;
 }
+a > .photographer__cover:hover {
+  transform: translateY(-10px);
+}
+a > .photographer__cover:hover::after {
+  opacity: 0.3;
+}
 
 .photographer-header {
   display: flex;
@@ -167,7 +195,7 @@ main {
   background: #DB8876;
   border-radius: 5px 5px 0px 0px;
   font-weight: 600;
-  z-index: 1;
+  z-index: 2;
 }
 .photographer-content-link__like {
   display: flex;
@@ -199,6 +227,7 @@ main {
   background-color: #901C1C;
   border-radius: 5px;
   cursor: pointer;
+  transition: all 0.15s ease-in-out;
 }
 .button__close {
   font-size: 60px !important;
@@ -240,11 +269,28 @@ main {
   font-style: normal;
   font-size: 25px;
   font-weight: 400;
+  z-index: 0;
+}
+.favorite__input:hover {
+  animation: boom 0.6s;
 }
 .favorite__input::after {
   content: "\e87d";
   opacity: 0.5;
+  transition: opacity 0.2s ease-in-out both;
 }
 .favorite__input:checked::after {
   opacity: 1;
+}
+
+@keyframes boom {
+  20% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
 }

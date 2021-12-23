@@ -1,19 +1,24 @@
 import "../scss/style_profil.scss"
 
 import Api from './api/api'
-import Modal from './class/modal'
 import Photographer from "./models/photographer"
-import {Video, Picture} from './models/media'
-import PhotographerTemplate from './templates/photographerTemplate'
-import ContactModalTemplate from './templates/contactModalTemplate'
-import {ListMediaTemplate } from './templates/mediaTemplate'
+import { Video, Picture } from './models/media'
+import PhotographerTemplate from './factory/photographerTemplate'
+import ContactModalTemplate from './factory/contactModalTemplate'
+import ListMediaTemplate from './factory/mediaTemplate'
+import FilterSelectTemplate from "./factory/filterSelectTemplate"
+import Modal from './controller/modal'
+import FilterSelect from "./controller/filterSelect"
+
 
 async function init() {
   const $photographersWrapper = document.querySelector('#profil')
   const $portfolioWrapper = document.querySelector('#portfolio')
+  const $filterWrapper = document.querySelector("#filter")
+  const listMedia = []
 
   // Instance de la Class API
-  const data = new Api('data/photographers.json')
+  const data = new Api('data/photographers_new.json')
 
   // Recupération paramètres url
   const queryString = window.location.search
@@ -24,38 +29,119 @@ async function init() {
   const photographerData = await data.getPhotographerById(userId);
   const portfolioData = await data.getPortfolioByUserId(userId);
 
-  // Creation du photographe et de son portfolio
-  const photographer = new Photographer(photographerData)
+  // List des médias du photograhe
   portfolioData.forEach(mediaData => {
     if(mediaData.image) {
-      photographer.addPortfolioMedia(new Picture(mediaData, photographer))
+      listMedia.push(new Picture(mediaData, photographer))
     } else if(mediaData.video) {
-      photographer.addPortfolioMedia(new Video(mediaData, photographer))
+      listMedia.push(new Video(mediaData, photographer))
     }    
   })
 
-  // Creation du header profil & link profil et insertion dans le DOM
-  const photographerTemplate = new PhotographerTemplate(photographer)
-  $photographersWrapper.appendChild(photographerTemplate.createPhotographerContentLink())
-  $photographersWrapper.appendChild(photographerTemplate.createPhotographerHeader())
-  photographer.template = photographerTemplate
+  // Creation de l'objet photographe
+  const photographer = new Photographer(photographerData)
+  photographer.portfolio = listMedia
+  photographer.templatePhotographer = new PhotographerTemplate(photographer)
+  photographer.templatePortfolio = new ListMediaTemplate(photographer)
+  photographer.templateModal = new ContactModalTemplate(photographer)
+  photographer.templateFilter = new FilterSelectTemplate()
 
-  //Creation du portfolio et insertion dans le DOM
-  const portfolioTemplate = new ListMediaTemplate(photographer)
-  $portfolioWrapper.appendChild(portfolioTemplate.createListMedia())
+  // Insertion des element dans le DOM
+  $photographersWrapper.appendChild(photographer.templatePhotographer.createPhotographerHeader())
+  $photographersWrapper.appendChild(photographer.templatePhotographer.createPhotographerContentLink())
+  $photographersWrapper.appendChild(photographer.templateModal.createContactModal())
+  $filterWrapper.appendChild(photographer.templateFilter.createFilter())
+  
 
-  // Creation de la modal de contact et insertion dans le DOM
-  const contactModalTemplate = new ContactModalTemplate(photographer)
-  $photographersWrapper.appendChild(contactModalTemplate.createContactModal())
+  // Initialisation des controllers
+  const modal = new Modal(photographer.templateModal)
+  photographer.templatePhotographer.btnModal.addEventListener('click', () => modal.displayModal())
 
-  // Creation de l'objet Modal
-  const modal = new Modal(contactModalTemplate.modalHtmlElement, contactModalTemplate.closeButtonHtmlElement)
+  const filter = new FilterSelect(photographer.templateFilter, photographer)
 
-  // Listeners pour la Modal
-  const btnModalContactOpen = document.querySelector('[aria-controls="contact-modal"]')
-  btnModalContactOpen.addEventListener('click', () => {
-    modal.displayModal()
+  // Insertion du portfolio après application du filtre par default
+  $portfolioWrapper.appendChild(photographer.templatePortfolio.createListMedia())
+  $portfolioWrapper.classList.add('loaded')
+
+  // Observeur pour rafraichier les element du DOM filtré
+  const targetNode = photographer.templateFilter.observerNode;
+  const config = { attributes: true, attributeFilter: ['data-filter-value'], };
+  const observer = new MutationObserver( function () {
+    photographer.templatePortfolio.refreshListMedia()
   })
+  observer.observe(targetNode, config);
+
+  // Lightbox
+  /**
+   * @property {HTMLElement} element
+   */
+  class Lightbox {
+    /**
+     * @param {string} url URL de l'image
+     */
+    constructor(url) {
+      this._element = this.buildDOM(url)
+      this._loadImage(url)
+      document.body.appendChild(this._element)
+    }
+
+    /**
+    * @param {string} url 
+    */
+    _loadImage (url) {
+      const image = new Image();
+      const container = this._element.querySelector('.lightbox__container')
+      const loader = document.createElement('div')
+
+      image.src = url
+      loader.classList.add('lightbox__loader')
+      container.appendChild(loader)
+
+      image.onload = function() {
+        container.removeChild(loader)
+        container.appendChild(image)
+      }      
+    }
+
+    /**
+     * @param {string} url 
+     * @return {HTMLElement}
+     */
+    buildDOM (url) {
+      const template = document.createElement('aside')
+      template.classList.add('lightbox')
+
+      const content = `
+        <button class="lightbox__close material-icons">close</button>
+        <button class="lightbox__next material-icons">arrow_forward_ios</button>
+        <button class="lightbox__prev material-icons">arrow_back_ios</button>
+        <div class="lightbox__container">
+          <div class="lightbox__container__content">
+            <p>Titre de l'image</p>
+          </div>             
+        </div>
+      `
+
+      template.innerHTML = content
+
+      return template
+    }
+
+    /**
+     * @param {Photographer} photographer 
+     */
+    static init(photographer) {
+      const mediaCardsLinks = photographer.templatePortfolio.mediasHtmlElement.querySelectorAll('a')
+      mediaCardsLinks.forEach(link => {
+        link.addEventListener('click', e => {
+          e.preventDefault()
+          new Lightbox(e.currentTarget.getAttribute('href'))
+        })
+      })
+    }
+  }
+
+  Lightbox.init(photographer)
 }
 
 init()

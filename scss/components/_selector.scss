@@ -1,37 +1,115 @@
 .selector {
   position: relative;
   margin:0;
-  padding: 5px 10px;
   background: $primary;
   list-style: none;
   border-radius: 5px;
   color: white;
+  height: 45px;
+  width: 170px;
   font-size: 18px;
-  height: 40px;
-  overflow: hidden;
+  transition: all .3s ease-in-out;
+  cursor: pointer;
+  z-index: 2;
+  
 
-  &::after {
+  &.active {
+    box-shadow: $shadow-selector;
+    overflow: hidden;
+
+    .selector__item:hover, .selector__item:focus {
+      box-shadow: none;
+      background-color:$primary-lighten2;
+      color:black;
+    }
+
+    button span {
+      transform: rotate(180deg);
+    }
+
+    .selector__item {
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+
+  button {
     position: absolute;
+    background: none;
+    border: none;
+    color: white;
     top:0;
     right:0;
-    padding:5px 10px;
-    content: '\e409';
-    font-family: 'Material Icons';
-    font-style: normal;
-    font-size: 25px;
-    font-weight: 400;
-    transform: rotate(90deg);
+    height: 45px;
+    width: 100%;
+    border-radius: 5px;
+    
+    span {
+      position: absolute;
+      right:0;
+      top:0;
+      width: 45px;
+      line-height: 45px;
+      transform: rotate(0deg);
+      transition: transform .3s ease-in-out;
+    }
+
     cursor: pointer;
+    z-index: 1;
+
+    &:hover {
+      color:$primary-lighten2
+    }
+  }
+
+  &__list {
+    margin:0;
+    padding:0;
   }
 
   &__item {
-    padding:5px;
-    padding-right:50px;
-    padding-bottom:10px;
-    border-bottom: 1px solid;
+    position: absolute;
+    top:0;
+    left: 0;
+    width: 100%;
+    padding: 0 20px;
+    list-style: none;
+    line-height: 45px;
+    height: 46px;
+    cursor: pointer;
+    transition: top .2s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
 
-    &:last-child {
-      border: 0px;
+    &[aria-selected="true"] {
+      opacity: 1
     }
-  }
+
+    &::after {
+      position: absolute;
+      left: 50%;
+      top: 0;
+      content:"";
+      width: 150px;
+      height: 1px;
+      background-color: white;
+      transform: translateX(-50%);
+    }
+
+    &--1 {
+      border: 0px;
+
+      &::after{
+        content: none;
+      }
+    }
+
+    @for $i from 0 through 10 {
+      &--#{$i + 1} {
+        top: calc(45px * $i);
+      }
+    }
+  }  
 }
+
+

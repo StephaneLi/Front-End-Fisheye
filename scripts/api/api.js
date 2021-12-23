@@ -40,4 +40,16 @@ export default class Api {
       throw new Error('La requete api getPhotographer a échoué : ', err)
     })
   }
+
+  // requete API simulation get tous les media avec l'id du photographe
+  async getAllMedias() {
+    return fetch(this._url)
+    .then(response => response.json())
+    .then(response => {
+      return response.media
+    } )
+    .catch(err => {
+      throw new Error('La requete api getPhotographer a échoué : ', err)
+    })
+  }
 }

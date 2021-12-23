@@ -2,14 +2,14 @@ import "../scss/style_index.scss"
 
 import Api from './api/api'
 import Photographer from './models/photographer'
-import PhotographerTemplate from './templates/photographerTemplate'
+import PhotographerTemplate from './factory/photographerTemplate'
 
 async function init() {
   // Node HTML dans lequel on insert la list des photographes
   const $photographersWrapper = document.querySelector('#photographer_section')
 
   // Instance de la Class API
-  const data = new Api('data/photographers.json')
+  const data = new Api('data/photographers_new.json')
 
   // Récupère les datas des photographes
   const photographers = await data.getPhotographers();
