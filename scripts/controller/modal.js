@@ -32,6 +32,15 @@ export default class Modal {
     })
   }
 
+  /**
+   * @param {ContactModalTemplate} template
+   * @param {Photographer} photographer
+  */
+  static init(template, photographer) {
+    const modal = new Modal(template)
+    photographer.templatePhotographer.btnModal.addEventListener('click', () => modal.displayModal())
+  }
+
   getElement() {
     return this._node
   }

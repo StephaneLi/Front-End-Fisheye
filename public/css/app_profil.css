@@ -596,9 +596,8 @@ a > .photographer__cover:hover::after {
   overflow: hidden;
 }
 .media-card__cover img, .media-card__cover video {
-  width: 350px;
+  min-width: 350px;
   height: 300px;
-  object-position: center 5%;
   object-fit: cover;
 }
 .media-card__cover::after {
@@ -646,6 +645,9 @@ a > .photographer__cover:hover::after {
   font-size: 24px;
   margin: 0;
 }
+.media-card--video .media-card__cover::before {
+  content: "\e037";
+}
 
 .lightbox {
   position: fixed;
@@ -655,7 +657,11 @@ a > .photographer__cover:hover::after {
   width: 100%;
   background-color: white;
   z-index: 9;
-  animation: lightbox-in 0.5s ease-in-out both;
+  animation: lightbox-in 0.5s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
+}
+.lightbox.fadeout {
+  opacity: 0 !important;
 }
 .lightbox__close, .lightbox__prev, .lightbox__next {
   position: fixed;
@@ -690,7 +696,8 @@ a > .photographer__cover:hover::after {
   width: 38px;
   height: 38px;
   opacity: 0.5;
-  background: url(../ee917082319c62616432.svg) no-repeat center;
+  /* webpackIgnore: true */
+  background: url("../assets/images/loader.svg") no-repeat center;
 }
 .lightbox__container {
   display: flex;
@@ -711,11 +718,10 @@ a > .photographer__cover:hover::after {
   align-items: center;
   flex-wrap: nowrap;
 }
-.lightbox__container__content img {
+.lightbox__container__content img, .lightbox__container__content video {
   display: block;
-  flex-shrink: 0;
-  flex-grow: 1;
   width: 100%;
+  max-height: 90vh;
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   animation: lightbox-in 0.5s ease-in-out 0.3s both;

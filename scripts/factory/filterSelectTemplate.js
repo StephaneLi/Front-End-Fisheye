@@ -1,3 +1,8 @@
+/**
+ * Template pour le filtre des images
+ * @property {HTMLElement} $wrapper
+ * @property {HTMLElemnt} _observerNode 
+ */
 export default class FilterSelectTemplate {
   constructor() {
     this.$wrapper = null

@@ -6,7 +6,12 @@
   width: 100%;
   background-color: white;
   z-index: 9;
-  animation: lightbox-in .5s ease-in-out both;
+  animation: lightbox-in .5s ease-in-out;
+  transition: opacity .3s ease-in-out;
+
+  &.fadeout {
+    opacity: 0!important;
+  }
 
   &__close, &__prev, &__next {
     position:fixed;
@@ -46,7 +51,8 @@
     width: 38px;
     height: 38px;
     opacity: 0.5;
-    background: url('../public/assets/images/loader.svg') no-repeat center;
+    /* webpackIgnore: true */
+    background: url('../assets/images/loader.svg') no-repeat center;
   }
 
   &__container {
@@ -59,18 +65,17 @@
 
     &__content {
       @include column(center);
-      img {
-        display: block;
-        flex-shrink: 0;
-        flex-grow: 1;     
+      img, video {
+        display: block; 
         width: 100%;
+        max-height: 90vh;
         border-radius: 5px;
         box-shadow: $shadow-selector;
         animation: lightbox-in .5s ease-in-out .3s both;
       }
   
       p {
-        max-height: 5%;        
+        max-height: 5%;
         display: block;
         align-self: start;
         margin:0;
@@ -79,11 +84,7 @@
         color: $primary;
       }
     }
-
-
-  }
-
-  
+  } 
 }
 
 @keyframes lightbox-in {

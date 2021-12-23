@@ -1,3 +1,11 @@
+/**
+ * Templates Photographe
+ * @property {Photographer} _photographer
+ * @property {HTMLElement} $wrapperCard
+ * @property {HTMLElement} $wrapperHeader
+ * @property {HTMLElement} $wrapperLink
+ * @property {HTMLElement} $buttonModal
+ */
 export default class PhotographerTemplate {
   /**
    * @param {Photographer} photographer 
@@ -15,6 +23,10 @@ export default class PhotographerTemplate {
     return this.$buttonModal
   }
 
+  /**
+   * Template pour la Card photographe 
+   * @returns {HTMLElement}
+   */
   createPhotographerCard () {
     this.$wrapperCard = document.createElement('li')
 
@@ -38,6 +50,10 @@ export default class PhotographerTemplate {
     return this.$wrapperCard
   }
 
+  /**
+   * Template pour le Header photographe
+   * @returns {HTMLElement}
+   */
   createPhotographerHeader () {
     this.$wrapperHeader = document.createElement('div')
     this.$wrapperHeader.classList.add('photographer-header')
@@ -63,6 +79,10 @@ export default class PhotographerTemplate {
     return this.$wrapperHeader
   }
 
+  /**
+   * Template pour le compteur de likes photographe
+   * @returns {HTMLElement}
+   */
   createPhotographerContentLink () {
     this.$wrapperLink = document.createElement('aside')
     this.$wrapperLink.classList.add('photographer-content-link')
@@ -75,6 +95,9 @@ export default class PhotographerTemplate {
     return this.$wrapperLink
   }
 
+  /**
+   * Rafraichie le compteur de like
+   */
   refreshPhotographerContentLink () {
     if(this.$wrapperLink) {
       this.$wrapperLink.querySelector('.photographer-content-link__like').innerHTML = `${ this._photographer.likes }`

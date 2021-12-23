@@ -26,6 +26,14 @@ export default class FilterSelect {
     return this._value
   }
 
+  /**
+   * @param {FilterSelectTemplate} template 
+   * @param {Photographer} photographer 
+   */
+  static init(template, photographer) {
+    new FilterSelect(template, photographer)
+  }
+
   filterPortfolio () {
     this._selector.dataset.filterValue = this._value
     switch (this._value) {

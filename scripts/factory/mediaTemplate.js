@@ -1,5 +1,9 @@
+import LightBox from "../controller/lightbox"
+
 /**
- * Créé un portfolio à partir d'une liste de medias
+ * Template : Genère une list de cards pour les médias
+ * @property {Photographer} _photographer
+ * @property {HTMLElement} $wrapperListCards
  */
 export default class ListMediaTemplate {
   /**
@@ -24,13 +28,17 @@ export default class ListMediaTemplate {
     this._photographer.portfolio.forEach(media => {
       const mediaTemplate = new MediaTemplate(this._photographer, media)
       media.template = mediaTemplate
-      this.$wrapperListCards.appendChild(mediaTemplate.creatCardMedia('li'))
+      this.$wrapperListCards.appendChild(mediaTemplate.createCardMedia('li'))
     })
 
     return this.$wrapperListCards
   }
 
-  refreshListMedia() {    
+  /**
+   * Rafraichi la list des médias en fonction des filtres
+   * @param {Function} callback
+   */
+  refreshListMedia(callback = () => {}) {    
     const parentNode = this.$wrapperListCards.parentNode
 
     parentNode.classList.remove('loaded')
@@ -41,17 +49,19 @@ export default class ListMediaTemplate {
       parentNode.appendChild(this.createListMedia())
       parentNode.classList.remove('loading')
       parentNode.classList.add('loaded')
+      callback()
       clearTimeout(timer)
     }, 300)
   }
 }
 
 /**
- * Créé un template HTML avec Un element Media (Le contenu different en fonction du type de media)
+ * Template : Genère une carte media
+ * @property {Photographer} _photographer
+ * @property {Media} _media
+ * @property {HTMLElement} $wrapperCard
  */
 export class MediaTemplate {
-  _imgPath = 'assets/porfolio'
-
   /**
   * @param {Media} media 
   */
@@ -61,46 +71,24 @@ export class MediaTemplate {
     this.$wrapperCard = null
   }
 
-  /**
-   * Factory Pattern : Retourne un contenu different en fonction du type de media
-   * @param {String} tagname 
-   * @returns {HTMLElement}
-   */
-  creatCardMedia(tagname = 'div') {
-    if (this._media.type === 'picture') {
-      return this._createCardMediaPicture(tagname)
-    } else if (this._media.type === 'video') {
-      return this._createCardMediaVideo(tagname)
-    } else {
-      throw 'Le type de média est inconnu'
-    }
-  }
-
-  _stateLikesListener() {
-    this.$wrapperCard.querySelector('input[type="checkbox"]').addEventListener('click', (e) => {
-      if (e.target.checked) {        
-        this._media.likes += 1        
-      } else {
-        this._media.likes -= 1 
-      }
-      this.$wrapperCard.querySelector('label.favorite__counter').innerHTML = this._media.likes
-      this._photographer.templatePhotographer.refreshPhotographerContentLink()
-    })
+  get mediaHtmlElement() {
+    return this.$wrapperCard
   }
 
   /**
    * @returns {HtmlElement}
    */
-  _createCardMediaPicture (tagName) {
+  createCardMedia (tagName) {
     this.$wrapperCard = document.createElement(tagName)
     this.$wrapperCard.classList.add('media-card')
+    this.$wrapperCard.classList.add(`media-card--${ this._media.type }`)
 
     const card = `         
-      <a href="${ this._imgPath }/${ this._photographer.id }/${ this._media.image }" class="media-card__cover">          
-        <img width="100" src="${ this._imgPath }/${ this._photographer.id }/${ this._media.image }" alt="${ this._media.description }"/>        
+      <a href="${ this._media.path }" class="media-card__cover">          
+        <img width="100" src="${ this._media.thumbPath }" alt="${ this._media.description }"/>        
       </a> 
       <div class="media-card__content">
-        <a href="${ this._imgPath }/${ this._photographer.id }/${ this._media.image }"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
+        <a href="${ this._media.path }"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
         <div class="media-card__content__like favorite">
           <label aria-label="like-${ this._media.id }" for="like-${ this._media.id }" class="favorite__counter">${ this._media.likes }</label>
           <input id="like-${ this._media.id }" class="favorite__input" type="checkbox" />
@@ -114,29 +102,19 @@ export class MediaTemplate {
   }
 
   /**
-  *  @returns {HtmlElement}
+   * Ecouteur d'evenement incrementation Likes
    */
-  _createCardMediaVideo (tagName) {
-    this.$wrapperCard = document.createElement(tagName)
-    this.$wrapperCard.classList.add('media-card')
-
-    const card = `         
-      <a href="${ this._imgPath }/${ this._photographer.id }/${ this._media.video }" class="media-card__cover">          
-        <video title="${ this._media.description }">
-          <source src="${ this._imgPath }/${ this._photographer.id }/${ this._media.video }" type="video/mp4">
-        </video>    
-      </a> 
-      <div class="media-card__content">
-        <a href="${ this._imgPath }/${ this._photographer.id }/${ this._media.video }"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
-        <div class="media-card__content__like favorite">
-          <label aria-label="like-${ this._media.id }" for="like-${ this._media.id }" class="favorite__counter">${ this._media.likes }</label>
-          <input id="like-${ this._media.id }" class="favorite__input" type="checkbox" />
-        </div>
-      </div>
-    `    
-    this.$wrapperCard.innerHTML = card
-    this.$wrapperCard.querySelector(`#like-${ this._media.id }`).checked = this._media.userLike
-    this._stateLikesListener()
-    return this.$wrapperCard
+  _stateLikesListener() {
+    this.$wrapperCard.querySelector('input[type="checkbox"]').addEventListener('click', (e) => {
+      if (e.target.checked) {        
+        this._media.likes += 1        
+      } else {
+        this._media.likes -= 1 
+      }
+      this.$wrapperCard.querySelector('label.favorite__counter').innerHTML = this._media.likes
+      
+      // Rafraichie le le ContentPhotographerLink
+      this._photographer.templatePhotographer.refreshPhotographerContentLink()
+    })
   }
 }
