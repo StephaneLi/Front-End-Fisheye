@@ -1,9 +1,24 @@
-// PHOTOGRAPHER : Structure le modele de donnée du photographe avec Getters et Setters
+/**
+ * @property {String} id
+ * @property {String} name
+ * @property {String} city
+ * @property {String} country
+ * @property {String} tagline
+ * @property {String} price
+ * @property {String} portrait
+ * @property {Media[]} portfolio
+ * @property {Number} likes
+ * @property {PhotographerTemplate} templatePhotographer
+ * @property {ListMediaTemplate} templatePortfolio
+ * @property {ModalTemplate} templateModal
+ * @property {FilterSelectTemplate} templateFilter
+ */
 export default class Photographer {
-
-  _profilPath = 'assets/photographers/'
-  
-  constructor(data) {
+  /**
+   * @param {JSON} data
+   */
+  constructor (data) {
+    this._profilPath = 'assets/photographers/'
     this._id = data.id
     this._name = data.name
     this._city = data.city
@@ -12,120 +27,130 @@ export default class Photographer {
     this._price = data.price
     this._portrait = data.portrait
     this._portfolio = []
-    
+
     this._templatePhotographer = null
     this._templatePortfolio = null
     this._templateModal = null
     this._templateFilter = null
   }
 
-  get id() {
+  /**
+   * GETTERS
+   */
+  get id () {
     return this._id
   }
 
-  get name() {
+  get name () {
     return this._name
   }
 
-  get city() {
+  get city () {
     return this._city
   }
 
-  get country() {
+  get country () {
     return this._country
   }
 
-  get tagline() {
+  get tagline () {
     return this._tagline
   }
 
-  get price() {
+  get price () {
     return this._price
   }
 
-  get portrait() {
+  get portrait () {
     return this._profilPath + this._portrait
   }
 
-  get portfolio() {
+  get portfolio () {
     return this._portfolio
   }
 
-  get likes() {
+  get likes () {
     return this._caluculateLikes()
   }
 
-  get templatePhotographer() {
+  get templatePhotographer () {
     return this._templatePhotographer
   }
 
-  get templatePortfolio() {
+  get templatePortfolio () {
     return this._templatePortfolio
   }
 
-  get templateModal() {
+  get templateModal () {
     return this._templateModal
   }
 
-  get templateFilter() {
+  get templateFilter () {
     return this._templateFilter
   }
 
   /**
+   * SETTERS
+   */
+
+  /**
   * @param {Media[]} medias
   */
-  set portfolio(medias) {
+  set portfolio (medias) {
     this._portfolio = medias
   }
 
   /**
    * @param {PhotographerTemplate} template
    */
-  set templatePhotographer(template) {
+  set templatePhotographer (template) {
     this._templatePhotographer = template
   }
 
   /**
    * @param {MediaTemplate} template
    */
-  set templatePortfolio(template) {
+  set templatePortfolio (template) {
     this._templatePortfolio = template
   }
 
   /**
    * @param {ContactModalTemplate} template
    */
-     set templateModal(template) {
-      this._templateModal = template
-    }
+  set templateModal (template) {
+    this._templateModal = template
+  }
 
   /**
    * @param {FilterSelectTemplate} template
    */
-     set templateFilter(template) {
-      this._templateFilter = template
-    }
+  set templateFilter (template) {
+    this._templateFilter = template
+  }
 
   /**
-   * @param {Media} media 
+   * Ajout d'un media dans le portfolio
+   * @param {Media} media
    */
-  addPortfolioMedia(media) {
+  addPortfolioMedia (media) {
     this._portfolio.push(media)
     this._likes += media.likes
   }
 
   /**
-   * @param {Media} media 
+   * Suppression d'un media dans le portfolio
+   * @param {Media} media
    */
-  removePortfolioMedia(media) {
+  removePortfolioMedia (media) {
     this._portfolio = this._portfolio.filter(element => element !== media)
     this._likes -= media.likes
   }
 
   /**
+   * PRIVATE Calcul les Likes de tous les medias
    * @returns {Number}
    */
-  _caluculateLikes() {
+  _caluculateLikes () {
     let totalLikes = 0
     this._portfolio.forEach(media => {
       totalLikes += media.likes

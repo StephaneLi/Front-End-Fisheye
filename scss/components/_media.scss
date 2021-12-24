@@ -12,7 +12,7 @@
 .media-card {
   list-style: none;
   width: 350px;
-  
+ 
   &__cover {
     display: block;
     position: relative;
@@ -22,9 +22,8 @@
     overflow: hidden;       
 
     img, video {
-      width:350px;
+      min-width:350px;
       height: 300px;
-      object-position: center 5%;
       object-fit: cover;
     }
     &::after {
@@ -73,6 +72,12 @@
     &__title {
       font-size: 24px;
       margin:0;
+    }
+  }
+
+  &--video {
+    .media-card__cover::before {
+      content:'\e037'
     }
   }
 }
