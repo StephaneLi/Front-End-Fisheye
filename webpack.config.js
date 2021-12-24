@@ -74,18 +74,29 @@ const config = {
     new HtmlWebpackPlugin({
       inject: false,
       title: 'FishEye | Accueil',
-      template: 'templates/index.template.html',
+      template: 'templates/index.template.ejs',
       chunks: ['app_index']
     }),
     new HtmlWebpackPlugin({
       inject: false,
       filename: 'photographer.html',
       title: 'FishEye | Photographer',
-      template: 'templates/photographer.template.html',
+      template: 'templates/photographer.template.ejs',
       chunks: ['app_profil']
     }),
     new ESLintPlugin({
       overrideConfigFile: path.resolve(__dirname, '.eslintrc')
+    }),
+    new CleanWebpackPlugin({
+      dry: false, // tester la configuration "true" avant de clean
+      cleanOnceBeforeBuildPatterns: [
+        '!assets/**',
+        '!data/**',
+        'js/*',
+        'css/*',
+        '*.html',
+        '!css/normalize.css'
+      ]
     })
   ]
 }
@@ -100,17 +111,6 @@ if (!dev) {
     fileName: '../templates/manifest.json',
     publicPath: ''
   }))
-  config.plugins.push(new CleanWebpackPlugin({
-    dry: false, // tester la configuration "true" avant de clean
-    cleanOnceBeforeBuildPatterns: [
-      '!assets/**',
-      '!data/**',
-      'js/*',
-      'css/*',
-      '*.html'
-    ]
-  })
-  )
 }
 
 module.exports = config
