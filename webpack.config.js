@@ -17,9 +17,9 @@ let config = {
     app_profil: ['./scripts/profil.js', './scss/style_profil.scss']
   },
   output: {
-    // cache managment avec hash en prod
     filename: dev ? 'js/[name].js' : 'js/[name][chunkhash:8].js',
     path: __dirname + '/public/',
+    assetModuleFilename: 'assets/images/[name][ext][query]'
   },
   devtool: dev ? "eval-cheap-module-source-map" : "source-map",
   module: {
@@ -28,6 +28,17 @@ let config = {
         test: /\.js$/,
         exclude: /node_modules/,
         use: ['babel-loader']
+      },
+      {
+        test: /\.(svg|png|jpe?g|gif)(\?.*)?$/,
+        type: 'asset/resource'
+      },
+      {
+        test: /\.css/,
+        type: 'asset/resource',
+        generator: {
+          filename: 'css/[name][ext]'
+        }
       },
       {
         test: /\.s[ac]ss$/i,
@@ -66,8 +77,7 @@ let config = {
         '!data/**',
         'js/*',
         'css/*',
-        '*.html',
-        '!css/normalize.css'        
+        '*.html',        
       ],
     }),
     new HtmlWebpackPlugin({

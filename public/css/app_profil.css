@@ -1,5 +1,5 @@
 /*!*************************************************************************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[2]!./scss/style_profil.scss ***!
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[3].use[1]!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[3].use[2]!./scss/style_profil.scss ***!
   \*************************************************************************************************************************************************************************/
 * {
   box-sizing: border-box;
@@ -696,8 +696,7 @@ a > .photographer__cover:hover::after {
   width: 38px;
   height: 38px;
   opacity: 0.5;
-  /* webpackIgnore: true */
-  background: url("../assets/images/loader.svg") no-repeat center;
+  background: url(../assets/images/loader.svg) no-repeat center;
 }
 .lightbox__container {
   display: flex;

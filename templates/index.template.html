@@ -5,7 +5,7 @@
     <title><%= htmlWebpackPlugin.options.title %></title>
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet" />
-    <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="<%= require('./css/normalize.css') %>" rel="stylesheet" type="text/css" />
     <% for (var chunk in htmlWebpackPlugin.files.js) { %>
       <link href="<%= htmlWebpackPlugin.files.css[chunk]%>"  rel="stylesheet" type="text/css"/>
     <% } %>
@@ -13,7 +13,7 @@
   <body>
     <header>
       <a href="index.html">
-        <img src="assets/images/logo.svg" class="logo" alt="Fisheye Home page" />
+        <img src="<%= require('./assets/logo.svg') %>" class="logo" alt="Fisheye Home page" />
       </a>
       <h1 class="text--primary">Nos photographes</h1>
     </header>
@@ -21,7 +21,7 @@
       <ul id="photographer_section"></ul>
     </main>
     <% for (var chunk in htmlWebpackPlugin.files.js) { %>
-      <script src="<%= htmlWebpackPlugin.files.js[chunk]%>"></script>
+      <script src="<%= htmlWebpackPlugin.files.js[chunk] %>"></script>
     <% } %>
   </body>
 </html>

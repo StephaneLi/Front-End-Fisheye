@@ -1,12 +1,15 @@
 {
-  "app_index.js": "js/app_index55f99f9f.js",
-  "app_index.css": "css/app_indexb7e35df2.css",
-  "app_profil.js": "js/app_profil829a6169.js",
-  "app_profil.css": "css/app_profild6341333.css",
+  "app_index.js": "js/app_index38373e27.js",
+  "app_index.css": "css/app_indexb9a7f003.css",
+  "app_profil.js": "js/app_profil9694fc78.js",
+  "app_profil.css": "css/app_profilfcdb134c.css",
+  "assets/images/logo.svg": "assets/images/logo.svg",
+  "css/normalize.css": "css/normalize.css",
+  "assets/images/loader.svg": "assets/images/loader.svg",
   "photographer.html": "photographer.html",
   "index.html": "index.html",
-  "app_index55f99f9f.js.map": "js/app_index55f99f9f.js.map",
-  "app_indexb7e35df2.css.map": "css/app_indexb7e35df2.css.map",
-  "app_profil829a6169.js.map": "js/app_profil829a6169.js.map",
-  "app_profild6341333.css.map": "css/app_profild6341333.css.map"
+  "app_index38373e27.js.map": "js/app_index38373e27.js.map",
+  "app_indexb9a7f003.css.map": "css/app_indexb9a7f003.css.map",
+  "app_profil9694fc78.js.map": "js/app_profil9694fc78.js.map",
+  "app_profilfcdb134c.css.map": "css/app_profilfcdb134c.css.map"
 }

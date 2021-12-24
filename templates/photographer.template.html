@@ -6,15 +6,15 @@
     <link rel="icon" type="image/png" href="assets/favicon.png">
     <link href="https://fonts.googleapis.com/css?family=DM+Sans&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link href="css/normalize.css" rel="stylesheet" type="text/css" />
+    <link href="<%= require('./css/normalize.css') %>" rel="stylesheet" type="text/css" />
     <% for (var chunk in htmlWebpackPlugin.files.js) { %>
-      <link href="<%= htmlWebpackPlugin.files.css[chunk]%>"  rel="stylesheet" type="text/css"/>
+      <link href="<%= htmlWebpackPlugin.files.css[chunk] %>"  rel="stylesheet" type="text/css"/>
     <% } %>    
   </head>
   <body>
     <header>
       <a href="index.html">
-        <img src="assets/images/logo.svg" class="logo" alt="Fisheye Home page" />
+        <img src="<%= require('./assets/logo.svg') %>" class="logo" alt="Fisheye Home page" />
       </a>
     </header>
     <main id="main">
