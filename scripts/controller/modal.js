@@ -1,7 +1,11 @@
+/**
+ * @property {HTMLElement} element
+ * @property {HTMLElement} previousFocus
+ */
 export default class Modal {
   /**
-   * @param {ContactModalTemplate} template 
-   * @param {String} ariaSelector 
+   * @param {ContactModalTemplate} template
+   * @param {String} ariaSelector
    */
   constructor (template, ariaSelector = 'button, a, input, textarea, [role="button"]') {
     this._node = template.modalHtmlElement
@@ -18,34 +22,32 @@ export default class Modal {
     this._closeModal = this.closeModal.bind(this)
     this._displayModal = this.displayModal.bind(this)
     this._sendEmail = this._sendEmail.bind(this)
+  }
 
+  /**
+   * @param {HTMLElement} btnOpenModal
+   */
+  init (btnOpenModal) {
     // Cache l'element modal par default
-    this._node.style.display = "none"
+    this._node.style.display = 'none'
 
     // Si la modal a un bouton de fermture on ajoute l'evenement
     if (this._closeNode) {
       this._closeNode.addEventListener('click', this._closeModal)
     }
 
-    this._sendButton.addEventListener('click', (e) => {
+    this._sendButton.addEventListener('click', () => {
       this._sendEmail()
     })
+
+    btnOpenModal.addEventListener('click', () => this.displayModal())
   }
 
-  /**
-   * @param {ContactModalTemplate} template
-   * @param {Photographer} photographer
-  */
-  static init(template, photographer) {
-    const modal = new Modal(template)
-    photographer.templatePhotographer.btnModal.addEventListener('click', () => modal.displayModal())
-  }
-
-  getElement() {
+  get element () {
     return this._node
   }
 
-  getPreviousFocus() {
+  get previousFocus () {
     return this._previousFocus
   }
 
@@ -81,11 +83,13 @@ export default class Modal {
    */
   closeModal () {
     // Focus sur l'element avant l'ouverture de la modal
-    if(this._previousFocus !== null) this._previousFocus.focus()
+    if (this._previousFocus !== null) {
+      this._previousFocus.focus()
+    }
 
     // Change les attributs aria et style
-    this._node.style.display = "none"
-    this._node.setAttribute('aria-hidden', true) 
+    this._node.style.display = 'none'
+    this._node.setAttribute('aria-hidden', true)
     this._node.removeAttribute('aria-modal')
 
     // Suppression des listeners present lors de l'ouverture de la modal
@@ -97,25 +101,25 @@ export default class Modal {
   }
 
   /**
-   * Stop la propagation des evenements
-   * @param {Event} e 
+   * PRIVATE Stop la propagation des evenements
+   * @param {Event} e
    */
   _stopPropagation (e) {
     e.stopPropagation()
   }
 
   /**
-   * Rendre la model accessible & Control aria tab
-   * @param {*} e 
+   * PRIVATE Rendre la model accessible & Control aria tab
+   * @param {KeyboardEvent} e
    */
-  _ariaModal(e) {
+  _ariaModal (e) {
     // Si on appuie sur echap on ferme la modal
     if (e.key === 'Escape' || e.key === 'Esc') {
       e.preventDefault()
       this._closeModal()
     }
     // Si l'element focus est le bouton close et que la touche est enter on ferme la modal
-    if ( this._node.querySelector(':focus') === this._closeNode && e.key === 'Enter' ) {
+    if (this._node.querySelector(':focus') === this._closeNode && e.key === 'Enter') {
       e.preventDefault()
       this._closeModal()
     }
@@ -126,33 +130,40 @@ export default class Modal {
     }
   }
 
+  /**
+   * Met le focus sur l'element TAB
+   * @param {KeyboardEvent} e
+   */
   _focusInModal (e) {
     e.preventDefault()
-    
+
     // Recupere l'element qui est focus dans la modal
     let index = this._ariaElements.findIndex(elmnt => elmnt === this._node.querySelector(':focus'))
-    
+
     // Incerment ou Decrement ( TAB || Shift+TAB )
-    if(e.shiftKey === true) {
+    if (e.shiftKey === true) {
       index--
     } else {
       index++
     }
     // Lors du Tab il passe a l'index suivant
-    if(index >= this._ariaElements.length) {
+    if (index >= this._ariaElements.length) {
       index = 0
     }
-    if(index < 0) {
-      index = this._ariaElements.length -1
+    if (index < 0) {
+      index = this._ariaElements.length - 1
     }
 
     this._ariaElements[index].focus()
   }
 
+  /**
+   * Renseigne dans la console l'email envoyé
+   */
   _sendEmail () {
     const form = this._node.querySelector('form')
     if (form.checkValidity()) {
-      const formData = new FormData( form );
+      const formData = new FormData(form)
       console.log('ENVOI DE L\'EMAIL:')
       console.log('******************')
       console.log('Prenom : ', formData.get('firstname'))

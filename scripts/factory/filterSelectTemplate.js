@@ -1,14 +1,17 @@
 /**
  * Template pour le filtre des images
- * @property {HTMLElement} $wrapper
- * @property {HTMLElemnt} _observerNode 
+ * @property {HTMLElement} filterHtmlElement
+ * @property {HTMLElemnt} observerNode
  */
 export default class FilterSelectTemplate {
-  constructor() {
+  constructor () {
     this.$wrapper = null
     this._observerNode = null
   }
 
+  /**
+   * GETTERS
+   */
   get filterHtmlElement () {
     return this.$wrapper
   }
@@ -35,7 +38,6 @@ export default class FilterSelectTemplate {
         </ul>
       </div>
     `
-    
     this.$wrapper.innerHTML = content
     this._observerNode = this.$wrapper.querySelector('.selector')
     return this.$wrapper

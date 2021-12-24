@@ -1,10 +1,15 @@
-import "../scss/style_index.scss"
+// Import SCSS
+import '../scss/style_index.scss'
 
+// Import Class JS
 import Api from './api/api'
 import Photographer from './models/photographer'
 import PhotographerTemplate from './factory/photographerTemplate'
 
-async function init() {
+// Init App
+init()
+
+async function init () {
   // Node HTML dans lequel on insert la list des photographes
   const $photographersWrapper = document.querySelector('#photographer_section')
 
@@ -12,7 +17,7 @@ async function init() {
   const data = new Api('data/photographers_new.json')
 
   // Récupère les datas des photographes
-  const photographers = await data.getPhotographers();
+  const photographers = await data.getPhotographers()
   const tabPhotographers = []
 
   // Création des objets photographer et insertion dans un tableau
@@ -26,6 +31,4 @@ async function init() {
     const photographerTemplate = new PhotographerTemplate(element)
     $photographersWrapper.appendChild(photographerTemplate.createPhotographerCard())
   })
-};
-
-init();
+}

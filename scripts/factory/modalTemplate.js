@@ -1,17 +1,21 @@
 /**
  * Template Modal contact
- * @property {Photographer} _photographer
- * @property {HTMLElement} $wrapperModal
+ * @property {HTMLElement} modalHtmlElement
+ * @property {HTMLElement} closeButtonHtmlElement
+ * @property {HTMLElement} sendButtonHtmlElement
  */
 export default class ModalTemplate {
   /**
-   * @param {Photographer} photographer 
+   * @param {Photographer} photographer
    */
-  constructor(photographer) {
+  constructor (photographer) {
     this._photographer = photographer
     this.$wrapperModal = null
   }
 
+  /**
+   * GETTERS
+   */
   get modalHtmlElement () {
     return this.$wrapperModal
   }
@@ -25,22 +29,22 @@ export default class ModalTemplate {
   }
 
   /**
+   * Template Modal HTML
    * @returns {HTMLElement}
    */
   createContactModal () {
     this.$wrapperModal = document.createElement('div')
-    this.$wrapperModal.id = "contact-modal"
+    this.$wrapperModal.id = 'contact-modal'
     this.$wrapperModal.style.display = 'none'
     this.$wrapperModal.setAttribute('role', 'dialog')
     this.$wrapperModal.setAttribute('aria-labelledby', 'contact-modal__title')
     this.$wrapperModal.setAttribute('aria-hidden', 'true')
     this.$wrapperModal.setAttribute('tabindex', '-1')
 
-
     const content = `
       <div class="modal" role="document" data-stop-propagation>
         <header>
-          <h2 id="contact-modal__title">Contactez-moi<br />${ this._photographer.name }</h2>
+          <h2 id="contact-modal__title">Contactez-moi<br />${this._photographer.name}</h2>
           <span class="material-icons button__close" role="button" aria-label="Fermer" title="Fermer cette fenêtre modale" data-dismiss="contact-modal" tabindex="0">close</span>
         </header>
         <form action="#" method="post" validate>

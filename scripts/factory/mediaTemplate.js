@@ -1,27 +1,28 @@
-import LightBox from "../controller/lightbox"
-
 /**
  * Template : Genère une list de cards pour les médias
- * @property {Photographer} _photographer
- * @property {HTMLElement} $wrapperListCards
+ * @property {HTMLElement} mediasHtmlElement
  */
 export default class ListMediaTemplate {
   /**
-   * @param {Photographer} 
+   * @param {Photographer} photographer
    */
-  constructor(photographer) {
+  constructor (photographer) {
     this._photographer = photographer
     this.$wrapperListCards = null
   }
 
-  get mediasHtmlElement() {
+  /**
+   * GETTERS
+   */
+  get mediasHtmlElement () {
     return this.$wrapperListCards
   }
 
   /**
+   * Template Pour une liste de Media Cards
    * @returns {HTMLElement}
    */
-  createListMedia() {
+  createListMedia () {
     this.$wrapperListCards = document.createElement('ul')
     this.$wrapperListCards.classList.add('media-cards-list')
 
@@ -35,10 +36,10 @@ export default class ListMediaTemplate {
   }
 
   /**
-   * Rafraichi la list des médias en fonction des filtres
+   * Rafraichi la list des médias en fonction du filtre
    * @param {Function} callback
    */
-  refreshListMedia(callback = () => {}) {    
+  refreshListMedia (callback = () => {}) {
     const parentNode = this.$wrapperListCards.parentNode
 
     parentNode.classList.remove('loaded')
@@ -57,62 +58,65 @@ export default class ListMediaTemplate {
 
 /**
  * Template : Genère une carte media
- * @property {Photographer} _photographer
- * @property {Media} _media
- * @property {HTMLElement} $wrapperCard
+ * @property {Photographer} mediaHtmlElement
  */
 export class MediaTemplate {
   /**
-  * @param {Media} media 
+   * @param {Photographer} photographer
+   * @param {Media} media
   */
-  constructor(photographer, media) {
+  constructor (photographer, media) {
     this._photographer = photographer
     this._media = media
     this.$wrapperCard = null
   }
 
-  get mediaHtmlElement() {
+  /**
+   * GETTERS
+   */
+  get mediaHtmlElement () {
     return this.$wrapperCard
   }
 
   /**
+   * Template Media Card
    * @returns {HtmlElement}
    */
   createCardMedia (tagName) {
     this.$wrapperCard = document.createElement(tagName)
     this.$wrapperCard.classList.add('media-card')
-    this.$wrapperCard.classList.add(`media-card--${ this._media.type }`)
+    this.$wrapperCard.classList.add(`media-card--${this._media.type}`)
 
     const card = `         
-      <a href="${ this._media.path }" class="media-card__cover">          
-        <img width="100" src="${ this._media.thumbPath }" alt="${ this._media.description }"/>        
+      <a href="${this._media.path}" class="media-card__cover">          
+        <img width="100" src="${this._media.thumbPath}" alt="${this._media.description}"/>        
       </a> 
       <div class="media-card__content">
-        <a href="${ this._media.path }"><h2 class="media-card__content__title">${ this._media.title }</h2></a>
+        <a href="${this._media.path}"><h2 class="media-card__content__title">${this._media.title}</h2></a>
         <div class="media-card__content__like favorite">
-          <label aria-label="like-${ this._media.id }" for="like-${ this._media.id }" class="favorite__counter">${ this._media.likes }</label>
-          <input id="like-${ this._media.id }" class="favorite__input" type="checkbox" />
+          <label aria-label="like-${this._media.id}" for="like-${this._media.id}" class="favorite__counter">${this._media.likes}</label>
+          <input id="like-${this._media.id}" class="favorite__input" type="checkbox" />
         </div>
       </div>
     `
     this.$wrapperCard.innerHTML = card
-    this.$wrapperCard.querySelector(`#like-${ this._media.id }`).checked = this._media.userLike
+    this.$wrapperCard.querySelector(`#like-${this._media.id}`).checked = this._media.userLike
     this._stateLikesListener()
     return this.$wrapperCard
   }
 
   /**
-   * Ecouteur d'evenement incrementation Likes
+   * PRIVATE Ecouteur d'evenement incrementation Likes
    */
-  _stateLikesListener() {
+  _stateLikesListener () {
     this.$wrapperCard.querySelector('input[type="checkbox"]').addEventListener('click', (e) => {
-      if (e.target.checked) {        
-        this._media.likes += 1        
+      if (e.target.checked) {
+        this._media.likes += 1
       } else {
-        this._media.likes -= 1 
+        this._media.likes -= 1
       }
       this.$wrapperCard.querySelector('label.favorite__counter').innerHTML = this._media.likes
-      
+
       // Rafraichie le le ContentPhotographerLink
       this._photographer.templatePhotographer.refreshPhotographerContentLink()
     })
