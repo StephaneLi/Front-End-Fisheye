@@ -40,6 +40,9 @@ npm run prod
 - Un dépôt de code sur GitHub avec des fichiers HTML, CSS et JavaScript.
 - Une version mise à jour du JSON (avec alt-text). 
 
+[GITHUB page] https://stephaneli.github.io/StephaneLieumont_6_09122021/
+[Espace Public] https://oc.sli-3d.fr/P6_Fisheye/
+
 ## Contribution
 Chaque nouvelles fonctionnalités doit être dans une nouvelle branche.  
 La branche doit être valide pour être implémentée.
