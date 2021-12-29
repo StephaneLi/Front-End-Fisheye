@@ -30,12 +30,7 @@ export default class Lightbox {
     this._template.prevButton.addEventListener('click', this._prev)
     this._template.loadFactory(this._media)
 
-    this._controls = [
-      this._template.media,
-      this._template.closeButton,
-      this._template.prevButton,
-      this._template.nextButton
-    ]
+    this._initControls()
   }
 
   /**
@@ -52,6 +47,7 @@ export default class Lightbox {
 
     this._media = this._photographer.portfolio[i + 1]
     this._template.loadFactory(this._media)
+    this._initControls()
   }
 
   /**
@@ -68,6 +64,7 @@ export default class Lightbox {
 
     this._media = this._photographer.portfolio[i - 1]
     this._template.loadFactory(this._media)
+    this._initControls()
   }
 
   /**
@@ -128,5 +125,14 @@ export default class Lightbox {
     }
 
     this._controls[index].focus()
+  }
+
+  _initControls () {
+    this._controls = [
+      this._template.media,
+      this._template.closeButton,
+      this._template.prevButton,
+      this._template.nextButton
+    ]
   }
 }
