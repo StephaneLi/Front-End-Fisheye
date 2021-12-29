@@ -61,7 +61,7 @@
     &::after {
       content: '\e87d';
       opacity: .5;
-      transition: opacity .2s ease-in-out both;
+      transition: opacity .2s ease-in-out;
     }
 
     &:checked::after {

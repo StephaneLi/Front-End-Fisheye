@@ -32,7 +32,10 @@ const config = {
       },
       {
         test: /\.(svg|png|jpe?g|gif)(\?.*)?$/,
-        type: 'asset/resource'
+        type: 'asset/resource',
+        generator: {
+          filename: 'assets/images/[name][ext]'
+        }
       },
       {
         test: /\.css/,
@@ -67,6 +70,18 @@ const config = {
     ]
   },
   plugins: [
+    new CleanWebpackPlugin({
+      dry: false, // tester la configuration "true" avant de clean
+      cleanStaleWebpackAssets: false,
+      cleanOnceBeforeBuildPatterns: [
+        '!assets/**',
+        '!data/**',
+        'js/*',
+        'css/*',
+        '*.html',
+        '!css/normalize.css'
+      ]
+    }),
     new MiniCssExtractPlugin({
       // cache managment avec hash en prod
       filename: dev ? 'css/[name].css' : 'css/[name][contenthash:8].css'
@@ -86,17 +101,6 @@ const config = {
     }),
     new ESLintPlugin({
       overrideConfigFile: path.resolve(__dirname, '.eslintrc')
-    }),
-    new CleanWebpackPlugin({
-      dry: false, // tester la configuration "true" avant de clean
-      cleanOnceBeforeBuildPatterns: [
-        '!assets/**',
-        '!data/**',
-        'js/*',
-        'css/*',
-        '*.html',
-        '!css/normalize.css'
-      ]
     })
   ]
 }

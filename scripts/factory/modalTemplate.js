@@ -45,26 +45,26 @@ export default class ModalTemplate {
       <div class="modal" role="document" data-stop-propagation>
         <header>
           <h2 id="contact-modal__title">Contactez-moi<br />${this._photographer.name}</h2>
-          <span class="material-icons button__close" role="button" aria-label="Fermer" title="Fermer cette fenêtre modale" data-dismiss="contact-modal" tabindex="0">close</span>
+          <span class="material-icons button__close" role="button" aria-label="Close Contact form" title="Fermer cette fenêtre modale" data-dismiss="contact-modal" tabindex="0">close</span>
         </header>
-        <form action="#" method="post" validate>
+        <form action="#" method="post">
           <div>
-            <label for="form-firstname">Prénom</label>
-            <input type="text" name="firstname" id="form-firstname" required minlength="2"/>
+            <label id="label-form-firstname" for="form-firstname">Prénom</label>
+            <input type="text" name="firstname" id="form-firstname" aria-labelledby="label-form-firstname" required minlength="2"/>
           </div>
           <div>
-            <label for="form-lastname">Nom</label>
-            <input type="text" name="lastname" id="form-lastname" required minlength="2"/>
+            <label id="label-form-lastname" for="form-lastname">Nom</label>
+            <input type="text" name="lastname" id="form-lastname" aria-labelledby="label-form-lastname" required minlength="2"/>
           </div>
           <div>
-            <label for="form-email">Email</label>
-            <input type="email" name="email" id="form-email" required/>
+            <label id="label-form-email" for="form-email">Email</label>
+            <input type="email" name="email" id="form-email" aria-labelledby="label-form-email" required/>
           </div>
           <div>
-            <label for="form-message">Votre message</label>
-            <textarea name="message" id="form-message" rows="5" placeholder=" " required minlength="10"></textarea>
+            <label id="label-form-message" for="form-message">Votre message</label>
+            <textarea name="message" id="form-message" rows="5" placeholder=" " aria-labelledby="label-form-message" required minlength="10"></textarea>
           </div>
-          <button class="button" type="submit" >Envoyer</button>
+          <button class="button" type="submit" aria-label="Send" >Envoyer</button>
         </form>
       </div>
     `

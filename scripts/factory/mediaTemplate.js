@@ -88,14 +88,14 @@ export class MediaTemplate {
     this.$wrapperCard.classList.add(`media-card--${this._media.type}`)
 
     const card = `         
-      <a href="${this._media.path}" class="media-card__cover">          
-        <img width="100" src="${this._media.thumbPath}" alt="${this._media.description}"/>        
+      <a href="${this._media.path}" class="media-card__cover" aria-label="${this._media.title}, closeup view">          
+        <img width="100" src="${this._media.thumbPath}" alt="${this._media.description}, ${this._media.type}"/>        
       </a> 
       <div class="media-card__content">
-        <a href="${this._media.path}"><h2 class="media-card__content__title">${this._media.title}</h2></a>
+        <h2 class="media-card__content__title">${this._media.title}</h2>
         <div class="media-card__content__like favorite">
-          <label aria-label="like-${this._media.id}" for="like-${this._media.id}" class="favorite__counter">${this._media.likes}</label>
-          <input id="like-${this._media.id}" class="favorite__input" type="checkbox" />
+          <label for="like-${this._media.id}" class="favorite__counter">${this._media.likes}</label>
+          <input id="like-${this._media.id}" aria-label="likes" class="favorite__input" type="checkbox" />
         </div>
       </div>
     `

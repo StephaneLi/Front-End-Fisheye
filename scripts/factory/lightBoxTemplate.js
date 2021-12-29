@@ -16,6 +16,7 @@ export default class LightboxTemplate {
     this.$lightboxCloseButton = null
     this.$lightboxNextButton = null
     this.$lightboxPrevButton = null
+    this.$media = null
   }
 
   /**
@@ -41,18 +42,23 @@ export default class LightboxTemplate {
     return this.$lightboxPrevButton
   }
 
+  get media () {
+    return this.$media
+  }
+
   /**
    * Template HTML LightBox
    * @returns {HTMLElement}
    */
   createLightBox () {
     const template = document.createElement('aside')
+    template.setAttribute('aria-label', 'image closeup view')
     template.classList.add('lightbox')
 
     const content = `
-        <button class="lightbox__close material-icons">close</button>
-        <button class="lightbox__next material-icons">arrow_forward_ios</button>
-        <button class="lightbox__prev material-icons">arrow_back_ios</button>
+        <button class="lightbox__close material-icons" aria-label="Close dialog">close</button>
+        <button class="lightbox__next material-icons" aria-label="Next Image">arrow_forward_ios</button>
+        <button class="lightbox__prev material-icons" aria-label="Previous Image">arrow_back_ios</button>
         <div class="lightbox__container">
           <div class="lightbox__container__content"></div>             
         </div>
@@ -92,17 +98,21 @@ export default class LightboxTemplate {
     const image = new Image()
     image.src = this._media.path
     image.alt = this._media.description
+    image.setAttribute('aria-labelledby', 'picture-title')
+    image.setAttribute('tabindex', '0')
 
     const loader = document.createElement('div')
     loader.classList.add('lightbox__loader')
 
     this.$lightboxContent.innerHTML = ''
     this.$lightboxContent.appendChild(loader)
+    this.$media = image
 
     image.onload = () => {
       this.$lightboxContent.removeChild(loader)
 
-      const title = document.createElement('p')
+      const title = document.createElement('h2')
+      title.id = 'picture-title'
       title.innerHTML = this._media.title
 
       this.$lightboxContent.appendChild(image)
@@ -117,9 +127,12 @@ export default class LightboxTemplate {
     const video = document.createElement('video')
     video.src = this._media.path
     video.setAttribute('title', this._media.description)
+    video.setAttribute('tabindex', '0')
     video.autoplay = true
+    this.$media = video
 
-    const title = document.createElement('p')
+    const title = document.createElement('h2')
+    title.id = 'picture-title'
     title.innerHTML = this._media.title
 
     this.$lightboxContent.innerHTML = ''

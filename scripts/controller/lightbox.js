@@ -9,6 +9,7 @@ export default class Lightbox {
     this._media = media
     this._photographer = photographer
     this._template = new LightboxTemplate(this._media)
+    this._controls = undefined
 
     // Garde les fonctions dans le context de l'objet
     this._onKeyUp = this._onKeyUp.bind(this)
@@ -28,6 +29,15 @@ export default class Lightbox {
     this._template.nextButton.addEventListener('click', this._next)
     this._template.prevButton.addEventListener('click', this._prev)
     this._template.loadFactory(this._media)
+
+    this._controls = [
+      this._template.media,
+      this._template.closeButton,
+      this._template.prevButton,
+      this._template.nextButton
+    ]
+
+    console.log(this._controls)
   }
 
   /**
@@ -90,5 +100,35 @@ export default class Lightbox {
     if (e.key === 'ArrowRight') {
       this._next(e)
     }
+    if (e.key === 'Tab') {
+      this._focusInLightBox(e)
+    }
+  }
+
+  /**
+   * Met le focus sur l'element TAB
+   * @param {KeyboardEvent} e
+   */
+  _focusInLightBox (e) {
+    e.preventDefault()
+
+    // Recupere l'element qui est focus dans la modal
+    let index = this._controls.findIndex(elmnt => elmnt === this._template.lightBoxHTMLElement.querySelector(':focus'))
+
+    // Incerment ou Decrement ( TAB || Shift+TAB )
+    if (e.shiftKey === true) {
+      index--
+    } else {
+      index++
+    }
+    // Lors du Tab il passe a l'index suivant
+    if (index >= this._controls.length) {
+      index = 0
+    }
+    if (index < 0) {
+      index = this._controls.length - 1
+    }
+
+    this._controls[index].focus()
   }
 }
