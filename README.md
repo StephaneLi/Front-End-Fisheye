@@ -42,6 +42,7 @@ npm run prod
 
 [GITHUB page](https://stephaneli.github.io/StephaneLieumont_6_09122021/)  
 [Espace Public](https://oc.sli-3d.fr/P6_Fisheye/)  
+[JSON Photographers with 'alt'](https://stephaneli.github.io/StephaneLieumont_6_09122021/data/photographers_new.json)  
 
 ## Contribution
 Chaque nouvelles fonctionnalités doit être dans une nouvelle branche.  
