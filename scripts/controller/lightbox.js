@@ -36,8 +36,6 @@ export default class Lightbox {
       this._template.prevButton,
       this._template.nextButton
     ]
-
-    console.log(this._controls)
   }
 
   /**
