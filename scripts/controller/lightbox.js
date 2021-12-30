@@ -10,6 +10,7 @@ export default class Lightbox {
     this._photographer = photographer
     this._template = new LightboxTemplate(this._media)
     this._controls = undefined
+    this._previousFocus = null
 
     // Garde les fonctions dans le context de l'objet
     this._onKeyUp = this._onKeyUp.bind(this)
@@ -22,12 +23,15 @@ export default class Lightbox {
    * Init LigthBox
    */
   init () {
+    // memorisation de l'element focus precedent
+    this._previousFocus = document.querySelector(':focus-visible')
+
     // Insertion de la lightbox dans le DOM
     document.body.appendChild(this._template.createLightBox())
     document.addEventListener('keydown', this._onKeyUp)
-    this._template.closeButton.addEventListener('click', this._close)
-    this._template.nextButton.addEventListener('click', this._next)
     this._template.prevButton.addEventListener('click', this._prev)
+    this._template.nextButton.addEventListener('click', this._next)
+    this._template.closeButton.addEventListener('click', this._close)
     this._template.loadFactory(this._media)
 
     this._initControls()
@@ -79,6 +83,11 @@ export default class Lightbox {
       clearTimeout(timer)
     }, 500)
     document.removeEventListener('keydown', this._onKeyUp)
+
+    // focus sur le dernier element avant ouverture lightbox
+    if (this._previousFocus) {
+      this._previousFocus.focus()
+    }
   }
 
   /**
@@ -97,6 +106,9 @@ export default class Lightbox {
     }
     if (e.key === 'Tab') {
       this._focusInLightBox(e)
+    }
+    if (e.key === 'ArrowUp') {
+      this._template.closeButton.focus()
     }
   }
 
@@ -130,9 +142,17 @@ export default class Lightbox {
   _initControls () {
     this._controls = [
       this._template.media,
-      this._template.closeButton,
+      this._template.title,
+      this._template.nextButton,
       this._template.prevButton,
-      this._template.nextButton
+      this._template.closeButton
     ]
+    // reinitialise le focus au changement de media
+    const timer = setTimeout(() => {
+      if (this._template.lightBoxHTMLElement.querySelector(':focus')) {
+        this._template.lightBoxHTMLElement.focus()
+      }
+      clearTimeout(timer)
+    }, 100)
   }
 }

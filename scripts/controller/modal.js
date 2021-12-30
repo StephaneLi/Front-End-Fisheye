@@ -7,7 +7,7 @@ export default class Modal {
    * @param {ContactModalTemplate} template
    * @param {String} ariaSelector
    */
-  constructor (template, ariaSelector = 'button, a, input, textarea, [role="button"]') {
+  constructor (template, ariaSelector = 'button, a, input, textarea, [role="button"], [tabindex="0"]') {
     this._node = template.modalHtmlElement
     this._closeNode = template.closeButtonHtmlElement
     this._sendButton = template.sendButtonHtmlElement
@@ -15,6 +15,7 @@ export default class Modal {
     this._previousFocus = null
     this._modalDisplay = null
     this._ariaElements = []
+    this._hiddenOnModal = Array.from(document.querySelectorAll('[data-hidden-on-modal]'))
 
     // Bind des fonctions pour garder le context this
     this._stopPropagation = this._stopPropagation.bind(this)
@@ -60,6 +61,11 @@ export default class Modal {
     this._node.removeAttribute('aria-hidden')
     this._node.setAttribute('aria-modal', true)
 
+    // Masque les elements aria en arrière plan
+    this._hiddenOnModal.forEach(item => {
+      item.setAttribute('aria-hidden', true)
+    })
+
     // Memorise le precedent element focus
     this._previousFocus = document.querySelector(':focus')
 
@@ -82,6 +88,11 @@ export default class Modal {
    * Ferme la boite modal
    */
   closeModal () {
+    // rends les elements aria actifs
+    this._hiddenOnModal.forEach(item => {
+      item.removeAttribute('aria-hidden')
+    })
+
     // Focus sur l'element avant l'ouverture de la modal
     if (this._previousFocus !== null) {
       this._previousFocus.focus()
