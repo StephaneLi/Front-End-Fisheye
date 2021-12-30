@@ -7,6 +7,7 @@ export default class FilterSelect {
     this._expandButton = template.filterHtmlElement.querySelector('[aria-expanded]')
     this._selector = template.filterHtmlElement.querySelector('.selector')
     this._photographer = photographer
+    this._selectorItemsList = this._selector.querySelector('#filter__list-items')
     this._selectorItems = Array.from(this._selector.querySelectorAll('.selector__item'))
     this._selectedItem = this._selectorItems[0]
     this._value = this._selectorItems[0].dataset.filterOption
@@ -181,7 +182,14 @@ export default class FilterSelect {
     if (e.key === 'Enter') {
       if (this._selector.querySelector(':focus') !== this._selectedItem) {
         this._selectItem(this._selector.querySelector(':focus'))
-        this._expandButton.focus()
+
+        this._selectorItemsList.setAttribute('aria-activedescendant', this._selector.querySelector(':focus').id)
+        this._expandButton.setAttribute('aria-labelledby', `filter__title ${this._selector.querySelector(':focus').id}`)
+        // fix le temps de latence lecteur d'ecran et focus
+        const timer = setTimeout(() => {
+          this._expandButton.focus()
+          clearTimeout(timer)
+        }, 100)
       } else {
         this._unexpandMenu()
         this._expandButton.focus()

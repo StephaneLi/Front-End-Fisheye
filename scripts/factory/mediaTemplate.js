@@ -88,14 +88,14 @@ export class MediaTemplate {
     this.$wrapperCard.classList.add(`media-card--${this._media.type}`)
 
     const card = `         
-      <a href="${this._media.path}" class="media-card__cover" aria-label="${this._media.title}, closeup view">          
+      <a href="${this._media.path}" class="media-card__cover" aria-label="${this._media.description}, agrandir l'image">          
         <img width="100" src="${this._media.thumbPath}" alt="${this._media.description}, ${this._media.type}"/>        
       </a> 
       <div class="media-card__content">
-        <h2 class="media-card__content__title">${this._media.title}</h2>
+        <h2 class="media-card__content__title" tabindex="0">${this._media.title}</h2>
         <div class="media-card__content__like favorite">
-          <label for="like-${this._media.id}" class="favorite__counter">${this._media.likes}</label>
-          <input id="like-${this._media.id}" aria-label="likes" class="favorite__input" type="checkbox" />
+          <label id="like-${this._media.id}" for="like-${this._media.id}-input" class="favorite__counter">${this._media.likes}</label>
+          <input id="like-${this._media.id}-input" aria-label="${this._media.likes} j'aimes" class="favorite__input" type="checkbox" />
         </div>
       </div>
     `
@@ -116,6 +116,7 @@ export class MediaTemplate {
         this._media.likes -= 1
       }
       this.$wrapperCard.querySelector('label.favorite__counter').innerHTML = this._media.likes
+      this.$wrapperCard.querySelector('input.favorite__input').setAttribute('aria-label', `${this._media.likes} j'aime`)
 
       // Rafraichie le le ContentPhotographerLink
       this._photographer.templatePhotographer.refreshPhotographerContentLink()

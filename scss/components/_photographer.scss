@@ -37,6 +37,11 @@
       z-index: 1;
       transition: opacity .3s ease-in-out
     }
+
+    &:focus {
+      outline: 0!important;
+      box-shadow: 0 0 0 3px rgba(255, 81, 0, 0.5)!important;
+    }
   }
 
   &__title {
@@ -49,15 +54,15 @@
 
   &__infos {
     &__local {
-      font-size: 13px;
+      font-size: 15px;
     }
 
     &__tagline {
-      font-size: 10px;
+      font-size: 12px;
     }
 
     &__price {
-      font-size: 9px;
+      font-size: 11px;
     }
   }
 
