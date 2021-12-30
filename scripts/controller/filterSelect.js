@@ -201,6 +201,14 @@ export default class FilterSelect {
       this._expandButton.focus()
     }
 
+    if (e.key === 'PageDown') {
+      this._selectorItems[this._selectorItems.length - 1].focus()
+    }
+
+    if (e.key === 'PageUp') {
+      this._selectorItems[0].focus()
+    }
+
     // Appuie sur fleche haut fleche bas, navigue entre les options
     if (e.key === 'ArrowUp' || e.key === 'ArrowDown') {
       // Recupere l'element qui est focus dans la modal

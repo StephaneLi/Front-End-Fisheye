@@ -1,7 +1,7 @@
 {
   "app_index.js": "js/app_index592dd4da.js",
   "app_index.css": "css/app_index89bf5340.css",
-  "app_profil.js": "js/app_profil995798c1.js",
+  "app_profil.js": "js/app_profil572a50df.js",
   "app_profil.css": "css/app_profil0c1f44be.css",
   "assets/images/logo.svg": "assets/images/logo.svg",
   "css/normalize.css": "css/normalize.css",
@@ -10,6 +10,6 @@
   "assets/images/loader.svg": "assets/images/loader.svg",
   "app_index592dd4da.js.map": "js/app_index592dd4da.js.map",
   "app_index89bf5340.css.map": "css/app_index89bf5340.css.map",
-  "app_profil995798c1.js.map": "js/app_profil995798c1.js.map",
+  "app_profil572a50df.js.map": "js/app_profil572a50df.js.map",
   "app_profil0c1f44be.css.map": "css/app_profil0c1f44be.css.map"
 }
