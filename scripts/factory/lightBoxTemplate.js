@@ -57,7 +57,8 @@ export default class LightboxTemplate {
    */
   createLightBox () {
     const template = document.createElement('aside')
-    template.setAttribute('aria-label', 'image en plein ecran')
+    template.setAttribute('aria-label', 'dialog mode plein ecran')
+    template.setAttribute('tabindex', 0)
     template.classList.add('lightbox')
 
     const content = `

@@ -33,7 +33,6 @@ export default class Lightbox {
     this._template.nextButton.addEventListener('click', this._next)
     this._template.closeButton.addEventListener('click', this._close)
     this._template.loadFactory(this._media)
-
     this._initControls()
   }
 
@@ -150,6 +149,8 @@ export default class Lightbox {
     // reinitialise le focus au changement de media
     const timer = setTimeout(() => {
       if (this._template.lightBoxHTMLElement.querySelector(':focus')) {
+        this._template.media.focus()
+      } else {
         this._template.lightBoxHTMLElement.focus()
       }
       clearTimeout(timer)
