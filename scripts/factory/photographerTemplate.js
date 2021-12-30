@@ -37,11 +37,11 @@ export default class PhotographerTemplate {
           </div>        
           <h2 class="photographer__title">${this._photographer.name}</h2>        
         </a>
-          <ul class="photographer__infos">
-            <li class="photographer__infos__local text--primary">${this._photographer.city}, ${this._photographer.country}</li>
-            <li class="photographer__infos__tagline">${this._photographer.tagline}</li>
-            <li class="photographer__infos__price text--grey">${this._photographer.price}€/jour</li>
-          </ul>
+          <div class="photographer__infos" tabindex="0">
+            <div class="photographer__infos__local text--primary">${this._photographer.city}, ${this._photographer.country}</div>
+            <div class="photographer__infos__tagline">${this._photographer.tagline}</div>
+            <div class="photographer__infos__price text--grey">${this._photographer.price}€/jour</div>
+          </div>
       </article>      
     `
 
@@ -56,20 +56,21 @@ export default class PhotographerTemplate {
   createPhotographerHeader () {
     this.$wrapperHeader = document.createElement('div')
     this.$wrapperHeader.classList.add('photographer-header')
+    this.$wrapperHeader.setAttribute('data-hidden-on-modal', '')
 
     const content = `
       <div class="photographer__content">
-        <h1 class="photographer__content__title display-h2">${this._photographer.name}</h1>
-        <p class="photographer__content__description">
+        <h1 class="photographer__content__title display-h2" tabindex="0">${this._photographer.name}</h1>
+        <p class="photographer__content__description" tabindex="0">
           <span class="photographer__content__description__local text--primary">${this._photographer.city}</span>
           <span class="photographer__content__description__tag text--grey">${this._photographer.tagline}</span>
         </p>
       </div>
       <div class="photographer__actions">
-        <button class="button" aria-label="Contact Me" aria-haspopup="dialog" aria-controls="contact-modal">Contactez-moi</button>
+        <button class="button" aria-label="Contacter ${this._photographer.name}" aria-haspopup="dialog" aria-controls="contact-modal">Contactez-moi</button>
       </div>
-      <div class="photographer__cover">
-        <img width="100" src="${this._photographer.portrait}" alt="Mimi Keel">
+      <div class="photographer__cover" tabindex="0">
+        <img width="100" src="${this._photographer.portrait}" alt="${this._photographer.name}">
       </div>
     `
 
@@ -84,11 +85,14 @@ export default class PhotographerTemplate {
    */
   createPhotographerContentLink () {
     this.$wrapperLink = document.createElement('aside')
+    this.$wrapperLink.setAttribute('tabindex', '0')
+    this.$wrapperLink.setAttribute('data-hidden-on-modal', '')
     this.$wrapperLink.classList.add('photographer-content-link')
+    this.$wrapperLink.setAttribute('aria-label', `${this._photographer.likes} j'aimes, tarifs: ${this._photographer.price}€ par jour`)
 
     const content = `
-      <div class="photographer-content-link__like">${this._photographer.likes}</div>
-      <div class="photographer-content-link__price">${this._photographer.price}€ / jour</div>
+      <div class="photographer-content-link__like" aria-hidden="true">${this._photographer.likes}</div>
+      <div class="photographer-content-link__price" aria-hidden="true">${this._photographer.price}€ / jour</div>
     `
     this.$wrapperLink.innerHTML = content
     return this.$wrapperLink
@@ -101,6 +105,7 @@ export default class PhotographerTemplate {
     if (this.$wrapperLink) {
       this.$wrapperLink.querySelector('.photographer-content-link__like').innerHTML = `${this._photographer.likes}`
       this.$wrapperLink.querySelector('.photographer-content-link__price').innerHTML = `${this._photographer.price} € / jour`
+      this.$wrapperLink.setAttribute('aria-label', `${this._photographer.likes} j'aimes, tarifs: ${this._photographer.price}€ par jour`)
     } else {
       throw new Error('$wrapperLink not exist yet, createPhotographerContentLink before')
     }

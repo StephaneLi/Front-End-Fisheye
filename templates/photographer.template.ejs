@@ -22,15 +22,15 @@
     <% } %>    
   </head>
   <body>
-    <header>
+    <header data-hidden-on-modal>
       <a href="index.html">
         <img src="<%= require('./assets/logo.svg') %>" class="logo" alt="Fisheye Home page" />
       </a>
     </header>
     <main id="main">
       <section id="profil"></section>
-      <section id="filter"></section>
-      <section id="portfolio"></section>
+      <section id="filter" data-hidden-on-modal></section>
+      <section id="portfolio" data-hidden-on-modal></section>
     </main>
     <% for (var chunk in htmlWebpackPlugin.files.js) { %>
       <script src="<%= htmlWebpackPlugin.files.js[chunk]%>"></script>
