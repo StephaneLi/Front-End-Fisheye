@@ -100,7 +100,7 @@ export class MediaTemplate {
       </div>
     `
     this.$wrapperCard.innerHTML = card
-    this.$wrapperCard.querySelector(`#like-${this._media.id}`).checked = this._media.userLike
+    this.$wrapperCard.querySelector(`#like-${this._media.id}-input`).checked = this._media.userLike
     this._stateLikesListener()
     return this.$wrapperCard
   }
